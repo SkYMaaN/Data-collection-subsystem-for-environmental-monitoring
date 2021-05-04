@@ -8,6 +8,8 @@ namespace Parser2._0
 {
     class DataBase_Manager //MySQL
     {
+        List<string> fields;
+        MainForm mainForm;
         private string path = "Server=" + "195.54.163.133" + ";Database=" + "h34471c_KPI_KEEM" + ";port=" + 3306 + ";User Id=" + "h34471c" + ";password=" + "8uUUS-97[1Aahm";
         private MySqlConnection sqlConnection;
         private MySqlCommand sqlCommand;
@@ -97,11 +99,12 @@ namespace Parser2._0
                 MessageBox.Show("Error:  " + ex.Message);
             }
         }
-        internal void Insert(string tablename, string[] fields, string[] values)
+        internal void Insert(string tablename, string[] values)
         {
             try
             {
-                sqlCommand.CommandText = "INSERT INTO " + tablename + "(" + String.Join(",", fields) + ") VALUES (" + String.Join(",", values) + ")";
+                sqlCommand.CommandText = "INSERT INTO " + tablename + " VALUES ('" + String.Join("','", values) + "')";
+                MessageBox.Show(sqlCommand.CommandText);
                 sqlConnection.Open();
                 sqlCommand.ExecuteNonQuery();
                 sqlConnection.Close();
@@ -206,11 +209,13 @@ namespace Parser2._0
                 return -1;
             }
         }
-        internal DataBase_Manager()
+        internal DataBase_Manager(MainForm form)
         {
             sqlConnection = new MySqlConnection();
             sqlCommand = new MySqlCommand();
             sqlCommand.Connection = sqlConnection;
+            mainForm = form;
+            fields = new List<string>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,10 +22,12 @@ namespace Parser2._0
         internal static void BuildComboBoxDataGridView(DataGridView dataGridView)
         {
             ClearDataGridView(dataGridView);
+            dataGridView.DataSource = new DataTable();
             DataGridViewComboBoxColumn dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
             //===============================
             dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
             dataGridViewComboBoxColumn.HeaderText = "Input Data";
+            dataGridViewComboBoxColumn.Items.Add("Varriable");
             dataGridView.Columns.Add(dataGridViewComboBoxColumn);
             ////
             dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
@@ -49,9 +52,10 @@ namespace Parser2._0
             dataGridViewTextBoxColumn.HeaderText = "Options";
             dataGridView.Columns.Add(dataGridViewTextBoxColumn);
             ////
-            dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
-            dataGridViewComboBoxColumn.HeaderText = "Result";
-            dataGridView.Columns.Add(dataGridViewComboBoxColumn);
+            dataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn.HeaderText = "Result";
+            dataGridView.Columns.Add(dataGridViewTextBoxColumn);
+            //
         }
         static void ClearDataGridView(DataGridView dataGridView)
         {

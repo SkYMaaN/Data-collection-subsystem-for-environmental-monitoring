@@ -34,27 +34,33 @@ namespace Parser2._0
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button_RefreshVarriable = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button_ExecuteRegulations = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button_SaveRegulations = new System.Windows.Forms.Button();
+            this.button_LoadRegulations = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.button_LoadExcel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button_LoadRegulations = new System.Windows.Forms.Button();
-            this.button_SaveRegulations = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button_ExecuteRegulations = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -67,6 +73,7 @@ namespace Parser2._0
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(1324, 445);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // menuStrip1
             // 
@@ -104,19 +111,138 @@ namespace Parser2._0
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(430, 759);
             this.panel1.TabIndex = 2;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.button_RefreshVarriable);
+            this.groupBox4.Controls.Add(this.listBox1);
+            this.groupBox4.Controls.Add(this.button_ExecuteRegulations);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox4.ForeColor = System.Drawing.Color.Gold;
+            this.groupBox4.Location = new System.Drawing.Point(12, 427);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(285, 320);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Управление";
+            // 
+            // button3
+            // 
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(6, 50);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(184, 47);
+            this.button3.TabIndex = 6;
+            this.button3.Text = "Очистить локальную переменную";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button_RefreshVarriable
+            // 
+            this.button_RefreshVarriable.ForeColor = System.Drawing.Color.Black;
+            this.button_RefreshVarriable.Location = new System.Drawing.Point(6, 103);
+            this.button_RefreshVarriable.Name = "button_RefreshVarriable";
+            this.button_RefreshVarriable.Size = new System.Drawing.Size(184, 23);
+            this.button_RefreshVarriable.TabIndex = 2;
+            this.button_RefreshVarriable.Text = "Обновить";
+            this.button_RefreshVarriable.UseVisualStyleBackColor = true;
+            this.button_RefreshVarriable.Click += new System.EventHandler(this.button_RefreshVarriable_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(6, 134);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(184, 180);
+            this.listBox1.TabIndex = 1;
+            // 
+            // button_ExecuteRegulations
+            // 
+            this.button_ExecuteRegulations.ForeColor = System.Drawing.Color.Black;
+            this.button_ExecuteRegulations.Location = new System.Drawing.Point(6, 21);
+            this.button_ExecuteRegulations.Name = "button_ExecuteRegulations";
+            this.button_ExecuteRegulations.Size = new System.Drawing.Size(184, 23);
+            this.button_ExecuteRegulations.TabIndex = 0;
+            this.button_ExecuteRegulations.Text = "Выполнить правила";
+            this.button_ExecuteRegulations.UseVisualStyleBackColor = true;
+            this.button_ExecuteRegulations.Click += new System.EventHandler(this.button_ExecuteRegulations_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox3.Controls.Add(this.button4);
+            this.groupBox3.Controls.Add(this.button_SaveRegulations);
+            this.groupBox3.Controls.Add(this.button_LoadRegulations);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox3.ForeColor = System.Drawing.Color.Gold;
+            this.groupBox3.Location = new System.Drawing.Point(12, 248);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(285, 122);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Правила парсинга";
+            // 
+            // button4
+            // 
+            this.button4.ForeColor = System.Drawing.Color.Black;
+            this.button4.Location = new System.Drawing.Point(9, 89);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(184, 23);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "Очистить правила";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button_SaveRegulations
+            // 
+            this.button_SaveRegulations.ForeColor = System.Drawing.Color.Black;
+            this.button_SaveRegulations.Location = new System.Drawing.Point(9, 60);
+            this.button_SaveRegulations.Name = "button_SaveRegulations";
+            this.button_SaveRegulations.Size = new System.Drawing.Size(184, 23);
+            this.button_SaveRegulations.TabIndex = 1;
+            this.button_SaveRegulations.Text = "Сохранить правила";
+            this.button_SaveRegulations.UseVisualStyleBackColor = true;
+            this.button_SaveRegulations.Click += new System.EventHandler(this.button_SaveRegulations_Click);
+            // 
+            // button_LoadRegulations
+            // 
+            this.button_LoadRegulations.ForeColor = System.Drawing.Color.Black;
+            this.button_LoadRegulations.Location = new System.Drawing.Point(9, 31);
+            this.button_LoadRegulations.Name = "button_LoadRegulations";
+            this.button_LoadRegulations.Size = new System.Drawing.Size(184, 23);
+            this.button_LoadRegulations.TabIndex = 0;
+            this.button_LoadRegulations.Text = "Загрузить правила";
+            this.button_LoadRegulations.UseVisualStyleBackColor = true;
+            this.button_LoadRegulations.Click += new System.EventHandler(this.button_LoadRegulations_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.button_LoadExcel);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox2.ForeColor = System.Drawing.Color.Gold;
-            this.groupBox2.Location = new System.Drawing.Point(12, 95);
+            this.groupBox2.Location = new System.Drawing.Point(12, 127);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(285, 71);
+            this.groupBox2.Size = new System.Drawing.Size(285, 93);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Microsoft Excel";
+            // 
+            // button1
+            // 
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(9, 60);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(184, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Show Excel Table";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button_LoadExcel
             // 
@@ -132,16 +258,28 @@ namespace Parser2._0
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.ForeColor = System.Drawing.Color.Gold;
             this.groupBox1.Location = new System.Drawing.Point(12, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(285, 86);
+            this.groupBox1.Size = new System.Drawing.Size(285, 107);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "База данных";
+            // 
+            // button2
+            // 
+            this.button2.ForeColor = System.Drawing.Color.Black;
+            this.button2.Location = new System.Drawing.Point(6, 74);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(187, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Show Data Base Table";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // comboBox1
             // 
@@ -170,6 +308,7 @@ namespace Parser2._0
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(1324, 243);
             this.dataGridView2.TabIndex = 3;
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
             // 
             // label2
             // 
@@ -193,64 +332,6 @@ namespace Parser2._0
             this.label3.TabIndex = 5;
             this.label3.Text = "Правила парсинга";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.groupBox3.Controls.Add(this.button_SaveRegulations);
-            this.groupBox3.Controls.Add(this.button_LoadRegulations);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.ForeColor = System.Drawing.Color.Gold;
-            this.groupBox3.Location = new System.Drawing.Point(12, 172);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(285, 112);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Правила парсинга";
-            // 
-            // button_LoadRegulations
-            // 
-            this.button_LoadRegulations.ForeColor = System.Drawing.Color.Black;
-            this.button_LoadRegulations.Location = new System.Drawing.Point(9, 31);
-            this.button_LoadRegulations.Name = "button_LoadRegulations";
-            this.button_LoadRegulations.Size = new System.Drawing.Size(184, 23);
-            this.button_LoadRegulations.TabIndex = 0;
-            this.button_LoadRegulations.Text = "Загрузить правила";
-            this.button_LoadRegulations.UseVisualStyleBackColor = true;
-            // 
-            // button_SaveRegulations
-            // 
-            this.button_SaveRegulations.ForeColor = System.Drawing.Color.Black;
-            this.button_SaveRegulations.Location = new System.Drawing.Point(9, 73);
-            this.button_SaveRegulations.Name = "button_SaveRegulations";
-            this.button_SaveRegulations.Size = new System.Drawing.Size(184, 23);
-            this.button_SaveRegulations.TabIndex = 1;
-            this.button_SaveRegulations.Text = "Сохранить правила";
-            this.button_SaveRegulations.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.groupBox4.Controls.Add(this.button_ExecuteRegulations);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox4.ForeColor = System.Drawing.Color.Gold;
-            this.groupBox4.Location = new System.Drawing.Point(12, 290);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(285, 457);
-            this.groupBox4.TabIndex = 8;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Управление";
-            // 
-            // button_ExecuteRegulations
-            // 
-            this.button_ExecuteRegulations.ForeColor = System.Drawing.Color.Black;
-            this.button_ExecuteRegulations.Location = new System.Drawing.Point(9, 31);
-            this.button_ExecuteRegulations.Name = "button_ExecuteRegulations";
-            this.button_ExecuteRegulations.Size = new System.Drawing.Size(184, 23);
-            this.button_ExecuteRegulations.TabIndex = 0;
-            this.button_ExecuteRegulations.Text = "Выполнить правила";
-            this.button_ExecuteRegulations.UseVisualStyleBackColor = true;
-            this.button_ExecuteRegulations.Click += new System.EventHandler(this.button_ExecuteRegulations_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -273,12 +354,12 @@ namespace Parser2._0
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,6 +385,12 @@ namespace Parser2._0
         private System.Windows.Forms.Button button_LoadRegulations;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button_ExecuteRegulations;
+        private System.Windows.Forms.Button button_RefreshVarriable;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        internal System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button4;
     }
 }
 

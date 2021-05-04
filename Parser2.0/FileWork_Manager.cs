@@ -8,8 +8,17 @@ namespace Parser2._0
 {
     class FileWork_Manager
     {
-        private List<string> datalist;
-        internal void SaveData()
+        MainForm mainForm;
+        internal List<string> datalist;
+        internal void ClearLocalDate()
+        {
+            if (datalist.Count > 0)
+            {
+                mainForm.listBox1.Items.Clear();
+                datalist.Clear();
+            }
+        }
+        internal void SaveLocalData()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.DefaultExt = "(*.json) | *.json";
@@ -23,7 +32,7 @@ namespace Parser2._0
                 }
             }
         }
-        internal void LoadData()
+        internal void LoadLocalData()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = "(*.json) | *.json";
@@ -38,11 +47,31 @@ namespace Parser2._0
                 }
             }
         }
-        internal List<string> GetData()
+        internal List<string> GetLocalData()
         {
             if (datalist.Count > 0)
             {
                 return datalist;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        internal List<string> GetLocalData(int count)
+        {
+            if (datalist.Count > 0) 
+            {
+                List<string> response = new List<string>();
+                for(int i = 0; i < count;i++)
+                {
+                    response.Add(datalist[i]);
+                }
+                for(int i = 0; i < count;i++)
+                {
+                    datalist.RemoveAt(0);
+                }
+                return response;
             }
             else
             {
@@ -60,7 +89,7 @@ namespace Parser2._0
                 return false;
             }
         }
-        internal void PushData(string Data)
+        internal void PushLocalData(string Data)
         {
             datalist.Add(Data);
         }
@@ -74,7 +103,26 @@ namespace Parser2._0
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     DataTable dataTable = new DataTable();
-                    dataTable = dataGridView.DataSource as DataTable;
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        dataTable.Rows.Add();
+                        for (int j = 0; j < dataGridView.Columns.Count; j++)
+                        {
+                            dataTable.Columns.Add();
+                            if (dataGridView.Rows[i].Cells[j].Value != null)
+                            {
+                                dataTable.Rows[i][j] = dataGridView.Rows[i].Cells[j].Value.ToString();
+                            }
+                            else
+                            {
+                                dataTable.Rows[i][j] = null;
+                            }
+                        }
+                    }
+                    for(int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        dataTable.Rows[i][1] = null;
+                    }
                     for (int i = 0; i < dataGridView.Rows.Count; i++)
                     {
                         dataTable.Rows.Add();
@@ -124,9 +172,10 @@ namespace Parser2._0
                 return null;
             }
         }
-        internal FileWork_Manager()
+        internal FileWork_Manager(MainForm form)
         {
             datalist = new List<string>();
+            mainForm = form;
         }
     }
 }

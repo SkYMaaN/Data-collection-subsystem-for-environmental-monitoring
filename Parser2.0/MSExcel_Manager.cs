@@ -6,6 +6,7 @@ namespace Parser2._0
 {
     class MSExcel_Manager
     {
+        MainForm mainForm;
         private Excel.Application ExcelApplication = null; 
         private Excel.Workbook Workbook = null; 
         private Excel.Worksheet Worksheet = null; 
@@ -44,9 +45,10 @@ namespace Parser2._0
                 Worksheet = null;
             }
         }
-        internal MSExcel_Manager()
+        internal MSExcel_Manager(MainForm form)
         {
             ExcelApplication = new Excel.Application();
+            mainForm = form;
         }
         ~MSExcel_Manager()
         {

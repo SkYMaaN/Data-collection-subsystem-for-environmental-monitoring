@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
@@ -6,7 +7,7 @@ namespace Parser2._0
 {
     class ExpertSystem_Manager
     {
-        
+        MainForm mainForm; 
         private string InputData; //0
         private string ValueInFile; //1
         private string OutputDataType; //2
@@ -61,44 +62,51 @@ namespace Parser2._0
         }
         internal void GetRegulations(DataGridView dataGridView)
         {
-            for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
+            try
             {
-                DataGridViewRow dataGridViewRow = new DataGridViewRow();
-                dataGridViewRow = dataGridView.Rows[i];
-                if (dataGridViewRow.Cells[0].Value != null)
+                for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
                 {
-                    InputData = dataGridViewRow.Cells[0].Value.ToString();
+                    DataGridViewRow dataGridViewRow = new DataGridViewRow();
+                    dataGridViewRow = dataGridView.Rows[i];
+                    if (dataGridViewRow.Cells[0].Value != null)
+                    {
+                        InputData = dataGridViewRow.Cells[0].Value.ToString();
+                    }
+                    if (dataGridViewRow.Cells[1].Value != null)
+                    {
+                        ValueInFile = dataGridViewRow.Cells[1].Value.ToString();
+                    }
+                    if (dataGridViewRow.Cells[2].Value != null)
+                    {
+                        OutputDataType = dataGridViewRow.Cells[2].Value.ToString();
+                    }
+                    if (dataGridViewRow.Cells[3].Value != null)
+                    {
+                        Command = dataGridViewRow.Cells[3].Value.ToString();
+                    }
+                    if (dataGridViewRow.Cells[4].Value != null)
+                    {
+                        Options = dataGridViewRow.Cells[4].Value.ToString();
+                    }
+                    if (dataGridViewRow.Cells[5].Value != null)
+                    {
+                        Result = dataGridViewRow.Cells[5].Value.ToString();
+                    }
+                    this.ExecuteCommand();
                 }
-                if (dataGridViewRow.Cells[1].Value != null)
-                {
-                    ValueInFile = dataGridViewRow.Cells[1].Value.ToString();
-                }
-                if (dataGridViewRow.Cells[2].Value != null)
-                {
-                    OutputDataType = dataGridViewRow.Cells[2].Value.ToString();
-                }
-                if (dataGridViewRow.Cells[3].Value != null)
-                {
-                    Command = dataGridViewRow.Cells[3].Value.ToString();
-                }
-                if (dataGridViewRow.Cells[4].Value != null)
-                {
-                    Options = dataGridViewRow.Cells[4].Value.ToString();
-                }
-                if (dataGridViewRow.Cells[5].Value != null)
-                {
-                    Result = dataGridViewRow.Cells[5].Value.ToString();
-                }
-                this.ExecuteCommand();
+            }
+            catch
+            {
+
             }
         }
         private void Save()
         {
-                       
+            mainForm.fileWork_Manager.PushLocalData(ValueInFile);               
         }
         private void Find()
         {
-            
+                
         }
         private void Edit()
         {
@@ -108,16 +116,40 @@ namespace Parser2._0
         {
             try
             {
-                 
+                if (InputData == "Varriable")
+                {
+                    List<string> list = ParseOptions();
+                    string tablename = list[0];
+                    list.RemoveAt(0);
+                    mainForm.dataBase_Manager.Insert(tablename, mainForm.fileWork_Manager.GetLocalData(3).ToArray());
+                }
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
                 MessageBox.Show("Error:  " + ex);
             }
         }
-        internal ExpertSystem_Manager()
+         List<string> ParseOptions()
         {
-            
+            List<string> response = new List<string>();
+            string str = "";
+            for(int i = 0; i < Options.Length;i++)
+            {
+                if (Options[i] != ';')
+                {
+                    str += Options[i];
+                }
+                else
+                {
+                    response.Add(str);
+                    str = "";
+                }
+            }
+            return response;
+        }
+        internal ExpertSystem_Manager(MainForm form)
+        {
+            mainForm = form;   
         }
     }
 }
