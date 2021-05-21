@@ -123,7 +123,7 @@ namespace Parser2._0
                     {
                         dataTable.Rows[i][1] = null;
                     }
-                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    /*for (int i = 0; i < dataGridView.Rows.Count; i++)
                     {
                         dataTable.Rows.Add();
                         for (int j = 0; j < dataGridView.Columns.Count; j++)
@@ -134,7 +134,7 @@ namespace Parser2._0
                                 dataTable.Rows[i][j] = dataGridView.Rows[i].Cells[j].Value.ToString();
                             }
                         }
-                    }
+                    }*/
                     string JSONstring = Newtonsoft.Json.JsonConvert.SerializeObject(dataTable);
                     using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
                     {

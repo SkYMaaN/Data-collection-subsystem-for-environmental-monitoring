@@ -1,6 +1,9 @@
 ﻿
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace Parser2._0
@@ -106,7 +109,32 @@ namespace Parser2._0
         }
         private void Find()
         {
-                
+            //Порядок полей
+            //Название таблицы, Желаемое поле, Поле условия
+            DataBase_Manager dataBase_Manager = new DataBase_Manager();
+            dataBase_Manager.ConnectToDB();
+            List<string> list = this.ParseOptions();
+            Object code = dataBase_Manager.ExecScalar("SELECT " + list[1].ToString() + " FROM " + list[0].ToString() + " WHERE " + list[2].ToString() + " = '" + this.ValueInFile + "'");
+            if(code != null)
+            {
+                DialogResult result = MessageBox.Show("Записать в переменную?", "Найдено!", MessageBoxButtons.YesNo,MessageBoxIcon.Information,MessageBoxDefaultButton.Button1,MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.Yes)
+                {
+                    mainForm.TMP_For_Find = code.ToString();
+                    MessageBox.Show("Значение записано в переменную!");
+                }
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Ввести значение с клавиатуры?", "Не найдено!", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.Yes)
+                {
+                    NotFindForm notFindForm = new NotFindForm();
+                    notFindForm.ShowDialog();
+                    mainForm.TMP_For_NotFind = notFindForm.textBox1.Text;
+                    MessageBox.Show("Новое значение записано в переменную!");
+                }
+            }
         }
         private void Edit()
         {
@@ -124,12 +152,12 @@ namespace Parser2._0
                     mainForm.dataBase_Manager.Insert(tablename, mainForm.fileWork_Manager.GetLocalData(3).ToArray());
                 }
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show("Error:  " + ex);
             }
         }
-         List<string> ParseOptions()
+        List<string> ParseOptions()
         {
             List<string> response = new List<string>();
             string str = "";

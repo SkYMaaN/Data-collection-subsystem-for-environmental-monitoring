@@ -10,7 +10,7 @@ namespace Parser2._0
     {
         List<string> fields;
         MainForm mainForm;
-        private string path = "Server=" + "195.54.163.133" + ";Database=" + "h34471c_KPI_KEEM" + ";port=" + 3306 + ";User Id=" + "h34471c" + ";password=" + "8uUUS-97[1Aahm";
+        private string path = "Server=" + "195.54.163.133" + ";Database=" + "h34471c_KPI_KEEM" + ";port=" + 3306 + ";User Id=" + "h34471c" + ";password=" + "8uUUS-97[1Aahm" + ";charset=utf8";
         private MySqlConnection sqlConnection;
         private MySqlCommand sqlCommand;
         internal void ConnectToDB()
@@ -191,6 +191,49 @@ namespace Parser2._0
                 return null;
             }
         }
+        internal object ExecScalar(string query)
+        {
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = query;
+                Object response = sqlCommand.ExecuteScalar();
+                if (response == DBNull.Value)
+                {
+                    sqlConnection.Close();
+                    return -1;
+                }
+                else
+                {
+                    sqlConnection.Close();
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error:  " + ex.Message);
+                sqlConnection.Close();
+                return -1;
+            }
+        }
+        internal DataTable SelectDataTable(string query)
+        {
+            try
+            {
+                sqlConnection.Open();
+                MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(query, sqlConnection);
+                DataSet dataSet = new DataSet();
+                sqlDataAdapter.Fill(dataSet);
+                sqlConnection.Close();
+                return dataSet.Tables[0];
+            }
+            catch (MySqlException ex)
+            {
+                sqlConnection.Close();
+                MessageBox.Show("Error:  " + ex.Message);
+                return null;
+            }
+        }
         internal int GetNextPrimaryKey(string tablename, string IdName)
         {
             try
@@ -209,12 +252,30 @@ namespace Parser2._0
                 return -1;
             }
         }
+        internal bool IsConnected()
+        {
+            if(sqlConnection.State == ConnectionState.Open)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         internal DataBase_Manager(MainForm form)
         {
             sqlConnection = new MySqlConnection();
             sqlCommand = new MySqlCommand();
             sqlCommand.Connection = sqlConnection;
             mainForm = form;
+            fields = new List<string>();
+        }
+        internal DataBase_Manager()
+        {
+            sqlConnection = new MySqlConnection();
+            sqlCommand = new MySqlCommand();
+            sqlCommand.Connection = sqlConnection;
             fields = new List<string>();
         }
     }

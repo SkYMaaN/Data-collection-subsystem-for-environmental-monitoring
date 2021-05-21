@@ -97,6 +97,12 @@
   <ItemGroup>
     <Compile Include="ExpertSystem_Manager.cs" />
     <Compile Include="FileWork_Manager.cs" />
+    <Compile Include="NotFindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotFindForm.Designer.cs">
+      <DependentUpon>NotFindForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,9 +110,12 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MSExcel_Manager.cs" />
-    <Compile Include="MY_SQL.cs" />
+    <Compile Include="DataBase_Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="NotFindForm.resx">
+      <DependentUpon>NotFindForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

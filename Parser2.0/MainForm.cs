@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Parser2._0
@@ -13,7 +14,8 @@ namespace Parser2._0
         internal FileWork_Manager fileWork_Manager;
         DataTable db_dataTable;
         DataTable excel_dataTable;
-        DataTable parsingRegulations_dataTable;
+        internal string TMP_For_Find;
+        internal string TMP_For_NotFind;
 
         public MainForm()
         {
@@ -34,6 +36,7 @@ namespace Parser2._0
         {
             Program.BuildComboBoxDataGridView(dataGridView2);
             comboBox1.Items.AddRange(dataBase_Manager.GetTableNames().ToArray());
+            
         }
 
         private void button_LoadExcel_Click(object sender, EventArgs e)
@@ -45,8 +48,8 @@ namespace Parser2._0
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-                db_dataTable = dataBase_Manager.SelectAll_DataTable("SELECT * FROM " + comboBox1.SelectedItem.ToString());
-                dataGridView1.DataSource = db_dataTable;
+            db_dataTable = dataBase_Manager.SelectAll_DataTable("SELECT * FROM " + comboBox1.SelectedItem.ToString());
+            dataGridView1.DataSource = db_dataTable;
         }
 
         private void button_ExecuteRegulations_Click(object sender, EventArgs e)
@@ -109,12 +112,18 @@ namespace Parser2._0
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show(e.RowIndex.ToString() + " " + e.ColumnIndex.ToString());
+            /*for(int i = 0; i < (dataGridView2.DataSource as DataTable).Rows.Count;i++)
+            {
+                if(dataGridView2.Rows[i].Cells[1].Value == null)
+                {
+                    dataGridView2.Rows[i].Cells[1].Value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                }
+            }*/
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -145,7 +154,13 @@ namespace Parser2._0
             if (excel_dataTable != null)
             {
                 DataTable dataTable = fileWork_Manager.LoadParsingRegulations();
+                for(int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    (dataGridView2.DataSource as DataTable).Rows.Add();
+                }
                 List<DataGridViewComboBoxColumn> dataGridViewComboBoxColumns = new List<DataGridViewComboBoxColumn>();
+                dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
+                dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
                 dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
                 dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
                 dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
@@ -181,6 +196,9 @@ namespace Parser2._0
                         dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
                         //
                         dataGridView2.Rows[i].Cells[1].Value = excel_dataTable.Rows[arr[0]][arr[1]].ToString();
+                        //
+                        dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
+
                     }
                 }
                 catch
@@ -202,6 +220,32 @@ namespace Parser2._0
         private void button_SaveRegulations_Click(object sender, EventArgs e)
         {
             fileWork_Manager.SaveParsingRegulations(dataGridView2);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(dataBase_Manager.IsConnected())
+            {
+                label5.ForeColor = Color.Green;
+                label5.Text = "Подключено!";
+            }
+            if(!dataBase_Manager.IsConnected())
+            {
+                label5.ForeColor = Color.Red;
+                label5.Text = "Отключено!";
+            }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            if(!String.IsNullOrEmpty(TMP_For_Find))
+            {
+                label4.Text = TMP_For_Find;
+            }
+            if (!String.IsNullOrEmpty(TMP_For_NotFind))
+            {
+                label4.Text = TMP_For_NotFind;
+            }
         }
     }
 }

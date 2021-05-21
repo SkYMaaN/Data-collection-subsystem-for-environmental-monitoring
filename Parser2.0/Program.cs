@@ -23,6 +23,10 @@ namespace Parser2._0
         {
             ClearDataGridView(dataGridView);
             dataGridView.DataSource = new DataTable();
+            for (int i = 0; i < 5; i++)
+            {
+                (dataGridView.DataSource as DataTable).Rows.Add();
+            }
             DataGridViewComboBoxColumn dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
             //===============================
             dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
@@ -56,6 +60,8 @@ namespace Parser2._0
             dataGridViewTextBoxColumn.HeaderText = "Result";
             dataGridView.Columns.Add(dataGridViewTextBoxColumn);
             //
+            
+            
         }
         static void ClearDataGridView(DataGridView dataGridView)
         {

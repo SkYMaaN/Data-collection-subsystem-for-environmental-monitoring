@@ -32,6 +32,7 @@ namespace Parser2._0
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -47,12 +48,14 @@ namespace Parser2._0
             this.button1 = new System.Windows.Forms.Button();
             this.button_LoadExcel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -70,7 +73,6 @@ namespace Parser2._0
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(439, 46);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(1324, 445);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
@@ -79,6 +81,7 @@ namespace Parser2._0
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuToolStripMenuItem,
+            this.справкаToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -91,6 +94,12 @@ namespace Parser2._0
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
+            // 
+            // справкаToolStripMenuItem
+            // 
+            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.справкаToolStripMenuItem.Text = "Справка";
             // 
             // exitToolStripMenuItem
             // 
@@ -191,7 +200,7 @@ namespace Parser2._0
             this.button4.ForeColor = System.Drawing.Color.Black;
             this.button4.Location = new System.Drawing.Point(9, 89);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(184, 23);
+            this.button4.Size = new System.Drawing.Size(232, 23);
             this.button4.TabIndex = 7;
             this.button4.Text = "Очистить правила";
             this.button4.UseVisualStyleBackColor = true;
@@ -202,7 +211,7 @@ namespace Parser2._0
             this.button_SaveRegulations.ForeColor = System.Drawing.Color.Black;
             this.button_SaveRegulations.Location = new System.Drawing.Point(9, 60);
             this.button_SaveRegulations.Name = "button_SaveRegulations";
-            this.button_SaveRegulations.Size = new System.Drawing.Size(184, 23);
+            this.button_SaveRegulations.Size = new System.Drawing.Size(232, 23);
             this.button_SaveRegulations.TabIndex = 1;
             this.button_SaveRegulations.Text = "Сохранить правила";
             this.button_SaveRegulations.UseVisualStyleBackColor = true;
@@ -213,7 +222,7 @@ namespace Parser2._0
             this.button_LoadRegulations.ForeColor = System.Drawing.Color.Black;
             this.button_LoadRegulations.Location = new System.Drawing.Point(9, 31);
             this.button_LoadRegulations.Name = "button_LoadRegulations";
-            this.button_LoadRegulations.Size = new System.Drawing.Size(184, 23);
+            this.button_LoadRegulations.Size = new System.Drawing.Size(232, 23);
             this.button_LoadRegulations.TabIndex = 0;
             this.button_LoadRegulations.Text = "Загрузить правила";
             this.button_LoadRegulations.UseVisualStyleBackColor = true;
@@ -238,9 +247,9 @@ namespace Parser2._0
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(9, 60);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(184, 23);
+            this.button1.Size = new System.Drawing.Size(232, 23);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Show Excel Table";
+            this.button1.Text = "Показать таблицу MS Excel";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -249,7 +258,7 @@ namespace Parser2._0
             this.button_LoadExcel.ForeColor = System.Drawing.Color.Black;
             this.button_LoadExcel.Location = new System.Drawing.Point(9, 31);
             this.button_LoadExcel.Name = "button_LoadExcel";
-            this.button_LoadExcel.Size = new System.Drawing.Size(184, 23);
+            this.button_LoadExcel.Size = new System.Drawing.Size(232, 23);
             this.button_LoadExcel.TabIndex = 0;
             this.button_LoadExcel.Text = "Загрузить таблицу";
             this.button_LoadExcel.UseVisualStyleBackColor = true;
@@ -258,6 +267,7 @@ namespace Parser2._0
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label1);
@@ -270,14 +280,25 @@ namespace Parser2._0
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "База данных";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.Gold;
+            this.label5.Location = new System.Drawing.Point(198, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(15, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "0";
+            // 
             // button2
             // 
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Location = new System.Drawing.Point(6, 74);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(187, 23);
+            this.button2.Size = new System.Drawing.Size(235, 23);
             this.button2.TabIndex = 5;
-            this.button2.Text = "Show Data Base Table";
+            this.button2.Text = "Показать таблицу БД";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -287,7 +308,7 @@ namespace Parser2._0
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(9, 44);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(184, 24);
+            this.comboBox1.Size = new System.Drawing.Size(232, 24);
             this.comboBox1.TabIndex = 3;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -332,19 +353,32 @@ namespace Parser2._0
             this.label3.TabIndex = 5;
             this.label3.Text = "Правила парсинга";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(596, 501);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 24);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "....";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(1775, 783);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.dataGridView1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -366,8 +400,6 @@ namespace Parser2._0
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -391,6 +423,10 @@ namespace Parser2._0
         private System.Windows.Forms.Button button3;
         internal System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button4;
+        internal System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+        internal System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
