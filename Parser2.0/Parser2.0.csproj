@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="ExpertSystem_Manager.cs" />
     <Compile Include="FileWork_Manager.cs" />
+    <Compile Include="JSON_Manager.cs" />
     <Compile Include="NotFindForm.cs">
       <SubType>Form</SubType>
     </Compile>

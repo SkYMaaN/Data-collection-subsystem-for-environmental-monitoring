@@ -12,8 +12,10 @@ namespace Parser2._0
         internal MSExcel_Manager excel_Manager;
         internal ExpertSystem_Manager expertSystem_Manager;
         internal FileWork_Manager fileWork_Manager;
+        internal JSON_Manager json_Manager;
         DataTable db_dataTable = null;
         DataTable excel_dataTable = null;
+        DataTable json_dataTable = null;
         internal string TMP_For_Find = "null";
 
         public MainForm()
@@ -24,6 +26,7 @@ namespace Parser2._0
             excel_Manager = new MSExcel_Manager(this);
             expertSystem_Manager = new ExpertSystem_Manager(this);
             fileWork_Manager = new FileWork_Manager(this);
+            json_Manager = new JSON_Manager(this);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -272,6 +275,47 @@ namespace Parser2._0
         private void dataGridView2_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (excel_dataTable != null)
+            {
+                excel_dataTable = null;
+                button4_Click(sender, e);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if(json_dataTable != null)
+            {
+                dataGridView1.DataSource = json_dataTable;
+            }
+            else
+            {
+                MessageBox.Show("Сначало загрузите JSON файл");
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            json_dataTable = json_Manager.LoadJsonFile();
+            if(json_dataTable != null)
+            {
+                dataGridView1.DataSource = json_dataTable;
+                json_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (json_dataTable != null)
+            {
+                dataGridView1.DataSource = null;
+                button4_Click(sender, e);
+                json_dataTable = null;
+            }
         }
     }
 }
