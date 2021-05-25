@@ -18,7 +18,8 @@ namespace Parser2._0
         private string Result; //5
         internal void Get_ValueInFile(DataGridView dataGridView, DataGridView dataGridView1)
         {
-
+            if (dataGridView.DataSource != null)
+            {
                 DataGridViewComboBoxColumn dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
                 dataGridViewComboBoxColumn = dataGridView1.Columns[0] as DataGridViewComboBoxColumn;
                 dataGridViewComboBoxColumn.Items.Clear();
@@ -26,6 +27,7 @@ namespace Parser2._0
                 DataGridViewComboBoxColumn dataGridViewComboBoxColumn1 = new DataGridViewComboBoxColumn();
                 dataGridViewComboBoxColumn1 = dataGridView1.Columns[1] as DataGridViewComboBoxColumn;
                 dataGridViewComboBoxColumn1.Items.Clear();
+                dataGridViewComboBoxColumn1.Items.Add("Varriable");
                 DataTable dataTable = new DataTable();
                 dataTable = dataGridView.DataSource as DataTable;
                 for (int i = 0; i < dataTable.Columns.Count; i++)
@@ -39,6 +41,7 @@ namespace Parser2._0
                         }
                     }
                 }
+            }
         }
         private void ExecuteCommand()
         {

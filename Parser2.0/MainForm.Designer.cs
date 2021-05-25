@@ -331,6 +331,7 @@ namespace Parser2._0
             this.dataGridView2.Size = new System.Drawing.Size(1324, 243);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
+            this.dataGridView2.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView2_DataError);
             // 
             // label2
             // 

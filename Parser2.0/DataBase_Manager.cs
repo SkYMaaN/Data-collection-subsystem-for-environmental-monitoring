@@ -135,7 +135,7 @@ namespace Parser2._0
             {
                 sqlCommand.Parameters.AddRange(mySqlParameters.ToArray());
                 sqlCommand.CommandText = "INSERT INTO " + tablename + " VALUES (" + String.Join(",", mySqlParameters) + ")";
-                MessageBox.Show(mySqlParameters.Count + "\n\n" + sqlCommand.CommandText);
+                //MessageBox.Show(mySqlParameters.Count + "\n\n" + sqlCommand.CommandText);
                 sqlConnection.Open();
                 sqlCommand.ExecuteNonQuery();
                 sqlConnection.Close();

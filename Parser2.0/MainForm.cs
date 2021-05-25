@@ -12,8 +12,8 @@ namespace Parser2._0
         internal MSExcel_Manager excel_Manager;
         internal ExpertSystem_Manager expertSystem_Manager;
         internal FileWork_Manager fileWork_Manager;
-        DataTable db_dataTable;
-        DataTable excel_dataTable;
+        DataTable db_dataTable = null;
+        DataTable excel_dataTable = null;
         internal string TMP_For_Find = "null";
 
         public MainForm()
@@ -41,8 +41,11 @@ namespace Parser2._0
         private void button_LoadExcel_Click(object sender, EventArgs e)
         {
             excel_dataTable = excel_Manager.LoadExcelFile();
-            dataGridView1.DataSource = excel_dataTable;
-            expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+            if (excel_dataTable != null)
+            {
+                dataGridView1.DataSource = excel_dataTable;
+                expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,21 +77,28 @@ namespace Parser2._0
                         try
                         {
                             string str = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
-                            string result = "";
-                            List<int> arr = new List<int>();
-                            for (int i = 0; i < str.Length; i++)
+                            if(dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString() == "Varriable")
                             {
-                                if (str[i] != '[' && str[i] != ']' && str[i] != ':')
-                                {
-                                    result += str[i];
-                                }
-                                else if (str[i] == ']' || str[i] == ':')
-                                {
-                                    arr.Add(Convert.ToInt32(result));
-                                    result = "";
-                                }
+                                dataGridView2.Rows[e.RowIndex].Cells[1].Value = "Varriable";
                             }
-                            dataGridView2.Rows[e.RowIndex].Cells[1].Value = dataGridView1.Rows[arr[0]].Cells[arr[1]].Value.ToString();
+                            else
+                            {
+                                string result = "";
+                                List<int> arr = new List<int>();
+                                for (int i = 0; i < str.Length; i++)
+                                {
+                                    if (str[i] != '[' && str[i] != ']' && str[i] != ':')
+                                    {
+                                        result += str[i];
+                                    }
+                                    else if (str[i] == ']' || str[i] == ':')
+                                    {
+                                        arr.Add(Convert.ToInt32(result));
+                                        result = "";
+                                    }
+                                }
+                                dataGridView2.Rows[e.RowIndex].Cells[1].Value = dataGridView1.Rows[arr[0]].Cells[arr[1]].Value.ToString();
+                            }
                         }
                         catch
                         {
@@ -100,15 +110,22 @@ namespace Parser2._0
                     {
                         try
                         {
-                            string str = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
-                            for (int i = 0; i < (dataGridView1.DataSource as DataTable).Columns.Count; i++)
+                            if(dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString() == "Varriable")
                             {
-                                for (int j = 0; j < (dataGridView1.DataSource as DataTable).Rows.Count; j++)
+                                dataGridView2.Rows[e.RowIndex].Cells[0].Value = "Varriable";
+                            }
+                            else
+                            {
+                                string str = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
+                                for (int i = 0; i < (dataGridView1.DataSource as DataTable).Columns.Count; i++)
                                 {
-                                    if ((dataGridView1.DataSource as DataTable).Rows[j][i].ToString() == str)
+                                    for (int j = 0; j < (dataGridView1.DataSource as DataTable).Rows.Count; j++)
                                     {
-                                        dataGridView2.Rows[e.RowIndex].Cells[0].Value = "[" + j + ":" + i + "]";
-                                        break;
+                                        if ((dataGridView1.DataSource as DataTable).Rows[j][i].ToString() == str)
+                                        {
+                                            dataGridView2.Rows[e.RowIndex].Cells[0].Value = "[" + j + ":" + i + "]";
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -136,7 +153,10 @@ namespace Parser2._0
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = db_dataTable;
+            if (db_dataTable != null)
+            {
+                dataGridView1.DataSource = db_dataTable;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -245,6 +265,11 @@ namespace Parser2._0
         }
 
         private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dataGridView2_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             
         }

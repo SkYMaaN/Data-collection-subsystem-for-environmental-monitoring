@@ -32,6 +32,7 @@ namespace Parser2._0
             ////
             dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
             dataGridViewComboBoxColumn.HeaderText = "Value In File";
+            dataGridViewComboBoxColumn.Items.Add("Varriable");
             dataGridView.Columns.Add(dataGridViewComboBoxColumn);
             ////
             dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn();
