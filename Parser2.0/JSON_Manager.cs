@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace Parser2._0
 {
     class JSON_Manager
     {
+        List<Object> json_datalist;
         MainForm mainForm;
         internal void Get_ValueInFile(DataGridView dataGridView, DataGridView dataGridView1)
         {
@@ -43,17 +45,21 @@ namespace Parser2._0
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 DataTable dataTable = null;
-                DataSet dataSet = null;
                 JObject jsonObject = null;
                 JArray jsonArray = null;
-                string str = null;
-                using (StreamReader file = File.OpenText(openFileDialog.FileName))
+                string jsonStr = File.ReadAllText(openFileDialog.FileName);
+                var token = JToken.Parse(jsonStr);
+                StreamReader file = File.OpenText(openFileDialog.FileName);
+                JsonTextReader jsonTextReader = new JsonTextReader(file);
+                if (token is JArray)
                 {
-                    using (JsonTextReader jsonTextReader = new JsonTextReader(file))
-                    {
-                        jsonArray = (JArray)JToken.ReadFrom(jsonTextReader);
-                        dataTable = JsonConvert.DeserializeObject<DataTable>(jsonArray.ToString());
-                    }
+                    jsonArray = JToken.ReadFrom(jsonTextReader) as JArray;
+                    dataTable = JsonConvert.DeserializeObject<DataTable>(jsonArray.ToString());
+                }
+                else if (token is JObject)
+                {
+                    jsonObject = JToken.ReadFrom(jsonTextReader) as JObject;
+                    dataTable = JsonConvert.DeserializeObject<DataTable>(jsonObject.ToString()); 
                 }
                 return dataTable;
             }
@@ -65,6 +71,7 @@ namespace Parser2._0
         internal JSON_Manager(MainForm mainForm_)
         {
             mainForm = mainForm_;
+            json_datalist = new List<Object>();
         }
     }
 }

@@ -120,6 +120,8 @@
     <Compile Include="ReferenceForm.Designer.cs">
       <DependentUpon>ReferenceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SaveEcoBotObject_Pollutant.cs" />
+    <Compile Include="SaveEcoBot_Object.cs" />
     <EmbeddedResource Include="NotFindForm.resx">
       <DependentUpon>NotFindForm.cs</DependentUpon>
     </EmbeddedResource>
