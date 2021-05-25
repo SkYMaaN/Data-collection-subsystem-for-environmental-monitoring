@@ -113,6 +113,12 @@
     <Compile Include="DataBase_Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceForm.Designer.cs">
+      <DependentUpon>ReferenceForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="NotFindForm.resx">
       <DependentUpon>NotFindForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +134,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

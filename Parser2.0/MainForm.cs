@@ -14,8 +14,7 @@ namespace Parser2._0
         internal FileWork_Manager fileWork_Manager;
         DataTable db_dataTable;
         DataTable excel_dataTable;
-        internal string TMP_For_Find;
-        internal string TMP_For_NotFind;
+        internal string TMP_For_Find = "null";
 
         public MainForm()
         {
@@ -66,11 +65,6 @@ namespace Parser2._0
             }
         }
 
-        private void button_InsertButton_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             switch(e.ColumnIndex)
@@ -104,7 +98,25 @@ namespace Parser2._0
                     }
                 case 1:
                     {
-                        
+                        try
+                        {
+                            string str = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            for (int i = 0; i < (dataGridView1.DataSource as DataTable).Columns.Count; i++)
+                            {
+                                for (int j = 0; j < (dataGridView1.DataSource as DataTable).Rows.Count; j++)
+                                {
+                                    if ((dataGridView1.DataSource as DataTable).Rows[j][i].ToString() == str)
+                                    {
+                                        dataGridView2.Rows[e.RowIndex].Cells[0].Value = "[" + j + ":" + i + "]";
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+
+                        }
                         break;
                     }
             }
@@ -121,10 +133,6 @@ namespace Parser2._0
             }*/
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -153,57 +161,63 @@ namespace Parser2._0
         {
             if (excel_dataTable != null)
             {
+                (dataGridView2.DataSource as DataTable).Clear();
                 DataTable dataTable = fileWork_Manager.LoadParsingRegulations();
-                for(int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    (dataGridView2.DataSource as DataTable).Rows.Add();
-                }
-                List<DataGridViewComboBoxColumn> dataGridViewComboBoxColumns = new List<DataGridViewComboBoxColumn>();
-                dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
-                dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
-                dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
-                dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
-                dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
-                dataGridViewComboBoxColumns[0] = dataGridView2.Columns[0] as DataGridViewComboBoxColumn;
-                dataGridViewComboBoxColumns[1] = dataGridView2.Columns[2] as DataGridViewComboBoxColumn;
-                dataGridViewComboBoxColumns[2] = dataGridView2.Columns[3] as DataGridViewComboBoxColumn;
-                try
-                {
+                if (dataTable != null)
+                {                   
                     for (int i = 0; i < dataTable.Rows.Count; i++)
                     {
-                        string str = dataTable.Rows[i][0].ToString();
-                        string result = "";
-                        List<int> arr = new List<int>();
-                        for (int j = 0; j < str.Length; j++)
+                        (dataGridView2.DataSource as DataTable).Rows.Add();
+                    }
+                    List<DataGridViewComboBoxColumn> dataGridViewComboBoxColumns = new List<DataGridViewComboBoxColumn>();
+                    dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
+                    dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
+                    dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
+                    dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
+                    dataGridViewComboBoxColumns.Add(new DataGridViewComboBoxColumn());
+                    dataGridViewComboBoxColumns[0] = dataGridView2.Columns[0] as DataGridViewComboBoxColumn;
+                    dataGridViewComboBoxColumns[1] = dataGridView2.Columns[1] as DataGridViewComboBoxColumn; //not using
+                    dataGridViewComboBoxColumns[2] = dataGridView2.Columns[2] as DataGridViewComboBoxColumn;
+                    dataGridViewComboBoxColumns[3] = dataGridView2.Columns[3] as DataGridViewComboBoxColumn;
+                    dataGridViewComboBoxColumns[4] = dataGridView2.Columns[4] as DataGridViewComboBoxColumn;
+                    try
+                    {
+                        for (int i = 0; i < dataTable.Rows.Count; i++)
                         {
-                            if (str[j] != '[' && str[j] != ']' && str[j] != ':')
+                            string str = dataTable.Rows[i][0].ToString();
+                            string result = "";
+                            List<int> arr = new List<int>();
+                            for (int j = 0; j < str.Length; j++)
                             {
-                                result += str[j];
+                                if (str[j] != '[' && str[j] != ']' && str[j] != ':')
+                                {
+                                    result += str[j];
+                                }
+                                else if (str[j] == ']' || str[j] == ':')
+                                {
+                                    arr.Add(Convert.ToInt32(result));
+                                    result = "";
+                                }
                             }
-                            else if (str[j] == ']' || str[j] == ':')
-                            {
-                                arr.Add(Convert.ToInt32(result));
-                                result = "";
-                            }
+                            dataGridViewComboBoxColumns[0].Items.Add(dataTable.Rows[i][0].ToString());
+                            dataGridView2.Rows[i].Cells[0].Value = dataTable.Rows[i][0].ToString();
+                            //
+                            dataGridView2.Rows[i].Cells[1].Value = excel_dataTable.Rows[arr[0]][arr[1]].ToString();
+                            //
+                            dataGridView2.Rows[i].Cells[2].Value = dataTable.Rows[i][2].ToString();
+                            //
+                            dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
+                            //
+                            dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
+                            dataGridView2.Rows[i].Cells[5].Value = dataTable.Rows[i][5].ToString();
+
                         }
-                        dataGridViewComboBoxColumns[0].Items.Add(dataTable.Rows[i][0].ToString());
-                        dataGridView2.Rows[i].Cells[0].Value = dataTable.Rows[i][0].ToString();
-                        //
-                        dataGridViewComboBoxColumns[1].Items.Add(dataTable.Rows[i][2].ToString());
-                        dataGridView2.Rows[i].Cells[2].Value = dataTable.Rows[i][2].ToString();
-                        //
-                        dataGridViewComboBoxColumns[2].Items.Add(dataTable.Rows[i][3].ToString());
-                        dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
-                        //
-                        dataGridView2.Rows[i].Cells[1].Value = excel_dataTable.Rows[arr[0]][arr[1]].ToString();
-                        //
-                        dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
 
                     }
-                }
-                catch
-                {
+                    catch
+                    {
 
+                    }
                 }
             }
             else
@@ -215,6 +229,7 @@ namespace Parser2._0
         private void button4_Click(object sender, EventArgs e)
         {
             Program.BuildComboBoxDataGridView(dataGridView2);
+            expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
         }
 
         private void button_SaveRegulations_Click(object sender, EventArgs e)
@@ -222,30 +237,16 @@ namespace Parser2._0
             fileWork_Manager.SaveParsingRegulations(dataGridView2);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick_1(object sender, EventArgs e)
         {
-            if(dataBase_Manager.IsConnected())
-            {
-                label5.ForeColor = Color.Green;
-                label5.Text = "Подключено!";
-            }
-            if(!dataBase_Manager.IsConnected())
-            {
-                label5.ForeColor = Color.Red;
-                label5.Text = "Отключено!";
-            }
+            button_RefreshVarriable_Click(sender, e);
+            listBox2.Items.Clear();
+            listBox2.Items.Add(TMP_For_Find);
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(!String.IsNullOrEmpty(TMP_For_Find))
-            {
-                label4.Text = TMP_For_Find;
-            }
-            if (!String.IsNullOrEmpty(TMP_For_NotFind))
-            {
-                label4.Text = TMP_For_NotFind;
-            }
+            
         }
     }
 }

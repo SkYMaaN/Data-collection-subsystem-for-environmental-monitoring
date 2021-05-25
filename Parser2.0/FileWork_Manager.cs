@@ -123,18 +123,6 @@ namespace Parser2._0
                     {
                         dataTable.Rows[i][1] = null;
                     }
-                    /*for (int i = 0; i < dataGridView.Rows.Count; i++)
-                    {
-                        dataTable.Rows.Add();
-                        for (int j = 0; j < dataGridView.Columns.Count; j++)
-                        {
-                            dataTable.Columns.Add();
-                            if (dataGridView.Rows[i].Cells[j].Value != null)
-                            {
-                                dataTable.Rows[i][j] = dataGridView.Rows[i].Cells[j].Value.ToString();
-                            }
-                        }
-                    }*/
                     string JSONstring = Newtonsoft.Json.JsonConvert.SerializeObject(dataTable);
                     using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
                     {
@@ -171,6 +159,10 @@ namespace Parser2._0
                 MessageBox.Show("Error: " + ex);
                 return null;
             }
+        }
+        internal int Count()
+        {
+            return datalist.Count;
         }
         internal FileWork_Manager(MainForm form)
         {

@@ -6,9 +6,8 @@ using System.Windows.Forms;
 
 namespace Parser2._0
 {
-    class DataBase_Manager //MySQL
+    class DataBase_Manager 
     {
-        List<string> fields;
         MainForm mainForm;
         private string path = "Server=" + "195.54.163.133" + ";Database=" + "h34471c_KPI_KEEM" + ";port=" + 3306 + ";User Id=" + "h34471c" + ";password=" + "8uUUS-97[1Aahm" + ";charset=utf8";
         private MySqlConnection sqlConnection;
@@ -111,6 +110,40 @@ namespace Parser2._0
             }
             catch (MySqlException ex)
             {
+                sqlConnection.Close();
+                MessageBox.Show("Error:  " + ex.Message);
+            }
+        }
+        internal void Insert(string tablename, string[] fields, string[] values)
+        {
+            try
+            {
+                sqlCommand.CommandText = "INSERT INTO " + tablename + " (" + String.Join(",", fields) + ") VALUES ('" + String.Join("','", values) + "')";
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                sqlConnection.Close();
+                MessageBox.Show("Error:  " + ex.Message);
+            }
+        }
+        internal void Insert(string tablename, List<MySqlParameter> mySqlParameters)
+        {
+            try
+            {
+                sqlCommand.Parameters.AddRange(mySqlParameters.ToArray());
+                sqlCommand.CommandText = "INSERT INTO " + tablename + " VALUES (" + String.Join(",", mySqlParameters) + ")";
+                MessageBox.Show(mySqlParameters.Count + "\n\n" + sqlCommand.CommandText);
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                sqlCommand.Parameters.Clear();
+            }
+            catch (MySqlException ex)
+            {
+                sqlCommand.Parameters.Clear();
                 sqlConnection.Close();
                 MessageBox.Show("Error:  " + ex.Message);
             }
@@ -269,14 +302,12 @@ namespace Parser2._0
             sqlCommand = new MySqlCommand();
             sqlCommand.Connection = sqlConnection;
             mainForm = form;
-            fields = new List<string>();
         }
         internal DataBase_Manager()
         {
             sqlConnection = new MySqlConnection();
             sqlCommand = new MySqlCommand();
             sqlCommand.Connection = sqlConnection;
-            fields = new List<string>();
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Parser2._0
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,6 +37,7 @@ namespace Parser2._0
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button_RefreshVarriable = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -48,7 +50,6 @@ namespace Parser2._0
             this.button1 = new System.Windows.Forms.Button();
             this.button_LoadExcel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +57,7 @@ namespace Parser2._0
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -73,6 +75,7 @@ namespace Parser2._0
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(439, 46);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(1324, 445);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
@@ -100,6 +103,7 @@ namespace Parser2._0
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -120,11 +124,11 @@ namespace Parser2._0
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(430, 759);
             this.panel1.TabIndex = 2;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox4.Controls.Add(this.listBox2);
             this.groupBox4.Controls.Add(this.button3);
             this.groupBox4.Controls.Add(this.button_RefreshVarriable);
             this.groupBox4.Controls.Add(this.listBox1);
@@ -137,6 +141,15 @@ namespace Parser2._0
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Управление";
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 16;
+            this.listBox2.Location = new System.Drawing.Point(196, 134);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(75, 180);
+            this.listBox2.TabIndex = 7;
             // 
             // button3
             // 
@@ -267,7 +280,6 @@ namespace Parser2._0
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label1);
@@ -279,17 +291,6 @@ namespace Parser2._0
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "База данных";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.Gold;
-            this.label5.Location = new System.Drawing.Point(198, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(15, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "0";
             // 
             // button2
             // 
@@ -360,10 +361,15 @@ namespace Parser2._0
             this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(596, 501);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 24);
+            this.label4.Size = new System.Drawing.Size(351, 24);
             this.label4.TabIndex = 6;
-            this.label4.Text = "....";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            this.label4.Text = "Название таблицы, количество полей";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
             // MainForm
             // 
@@ -425,8 +431,9 @@ namespace Parser2._0
         private System.Windows.Forms.Button button4;
         internal System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
-        internal System.Windows.Forms.Label label5;
         internal System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Timer timer1;
+        internal System.Windows.Forms.ListBox listBox2;
     }
 }
 
