@@ -14,6 +14,7 @@ namespace Parser2._0
         internal DataTable LoadExcelFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "(*.xlsx, *.xls) | *.xlsx; *.xls";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 CloseExcelFile();
@@ -44,6 +45,11 @@ namespace Parser2._0
                 Workbook = null;
                 Worksheet = null;
             }
+        }
+        internal void Dispose()
+        {
+            ExcelApplication.Workbooks.Close();
+            ExcelApplication.Quit();
         }
         internal MSExcel_Manager(MainForm form)
         {

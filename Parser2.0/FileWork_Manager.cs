@@ -18,35 +18,6 @@ namespace Parser2._0
                 datalist.Clear();
             }
         }
-        internal void SaveLocalData()
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.DefaultExt = "(*.json) | *.json";
-            saveFileDialog.Filter = "(*.json) | *.json";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string JSONstring = Newtonsoft.Json.JsonConvert.SerializeObject(datalist);
-                using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.OpenOrCreate))
-                {
-                    fs.Write(System.Text.Encoding.Default.GetBytes(JSONstring), 0, System.Text.Encoding.Default.GetBytes(JSONstring).Length);
-                }
-            }
-        }
-        internal void LoadLocalData()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = "(*.json) | *.json";
-            openFileDialog.Filter = "(*.json) | *.json";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open))
-                {
-                    byte[] array = new byte[fs.Length];
-                    fs.Read(array, 0, array.Length);
-                    datalist = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(System.Text.Encoding.Default.GetString(array));
-                }
-            }
-        }
         internal List<string> GetLocalData()
         {
             if (datalist.Count > 0)
@@ -105,17 +76,20 @@ namespace Parser2._0
                     DataTable dataTable = new DataTable();
                     for (int i = 0; i < dataGridView.Rows.Count; i++)
                     {
-                        dataTable.Rows.Add();
-                        for (int j = 0; j < dataGridView.Columns.Count; j++)
+                        if (!Program.IsDataGridViewRowEmpty(dataGridView.Rows[i]))
                         {
-                            dataTable.Columns.Add();
-                            if (dataGridView.Rows[i].Cells[j].Value != null)
+                            dataTable.Rows.Add();
+                            for (int j = 0; j < dataGridView.Columns.Count; j++)
                             {
-                                dataTable.Rows[i][j] = dataGridView.Rows[i].Cells[j].Value.ToString();
-                            }
-                            else
-                            {
-                                dataTable.Rows[i][j] = null;
+                                dataTable.Columns.Add();
+                                if (dataGridView.Rows[i].Cells[j].Value != null)
+                                {
+                                    dataTable.Rows[i][j] = dataGridView.Rows[i].Cells[j].Value.ToString();
+                                }
+                                else
+                                {
+                                    dataTable.Rows[i][j] = null;
+                                }
                             }
                         }
                     }

@@ -31,6 +31,7 @@ namespace Parser2._0
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            excel_Manager.Dispose();
             this.Close();
         }
 
@@ -185,6 +186,7 @@ namespace Parser2._0
             if (excel_dataTable != null)
             {
                 (dataGridView2.DataSource as DataTable).Clear();
+                (dataGridView2.DataSource as DataTable).Rows.Clear();
                 DataTable dataTable = fileWork_Manager.LoadParsingRegulations();
                 if (dataTable != null)
                 {                   
@@ -203,45 +205,55 @@ namespace Parser2._0
                     dataGridViewComboBoxColumns[2] = dataGridView2.Columns[2] as DataGridViewComboBoxColumn;
                     dataGridViewComboBoxColumns[3] = dataGridView2.Columns[3] as DataGridViewComboBoxColumn;
                     dataGridViewComboBoxColumns[4] = dataGridView2.Columns[4] as DataGridViewComboBoxColumn;
-                    try
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
                     {
-                        for (int i = 0; i < dataTable.Rows.Count; i++)
+                        try
                         {
                             string str = dataTable.Rows[i][0].ToString();
-                            string result = "";
-                            List<int> arr = new List<int>();
-                            for (int j = 0; j < str.Length; j++)
+                            if (str != "Varriable")
                             {
-                                if (str[j] != '[' && str[j] != ']' && str[j] != ':')
+                                string result = "";
+                                List<int> arr = new List<int>();
+                                for (int j = 0; j < str.Length; j++)
                                 {
-                                    result += str[j];
+                                    if (str[j] != '[' && str[j] != ']' && str[j] != ':')
+                                    {
+                                        result += str[j];
+                                    }
+                                    else if (str[j] == ']' || str[j] == ':')
+                                    {
+                                        arr.Add(Convert.ToInt32(result));
+                                        result = "";
+                                    }
                                 }
-                                else if (str[j] == ']' || str[j] == ':')
-                                {
-                                    arr.Add(Convert.ToInt32(result));
-                                    result = "";
-                                }
+                                dataGridViewComboBoxColumns[0].Items.Add(dataTable.Rows[i][0].ToString());
+                                dataGridView2.Rows[i].Cells[0].Value = dataTable.Rows[i][0].ToString();
+                                dataGridView2.Rows[i].Cells[1].Value = excel_dataTable.Rows[arr[0]][arr[1]].ToString();
+                                dataGridView2.Rows[i].Cells[2].Value = dataTable.Rows[i][2].ToString();
+                                dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
+                                dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
+                                dataGridView2.Rows[i].Cells[5].Value = dataTable.Rows[i][5].ToString();
                             }
-                            dataGridViewComboBoxColumns[0].Items.Add(dataTable.Rows[i][0].ToString());
-                            dataGridView2.Rows[i].Cells[0].Value = dataTable.Rows[i][0].ToString();
-                            //
-                            dataGridView2.Rows[i].Cells[1].Value = excel_dataTable.Rows[arr[0]][arr[1]].ToString();
-                            //
-                            dataGridView2.Rows[i].Cells[2].Value = dataTable.Rows[i][2].ToString();
-                            //
-                            dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
-                            //
-                            dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
-                            dataGridView2.Rows[i].Cells[5].Value = dataTable.Rows[i][5].ToString();
-
+                            else
+                            {
+                                dataGridViewComboBoxColumns[0].Items.Add(dataTable.Rows[i][0].ToString());
+                                dataGridView2.Rows[i].Cells[0].Value = dataTable.Rows[i][0].ToString();
+                                //dataGridView2.Rows[i].Cells[1].Value = "";
+                                dataGridView2.Rows[i].Cells[2].Value = dataTable.Rows[i][2].ToString();
+                                dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
+                                dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
+                                dataGridView2.Rows[i].Cells[5].Value = dataTable.Rows[i][5].ToString();
+                            }
+                            
                         }
-
-                    }
-                    catch
-                    {
-
+                        catch
+                        {
+                            continue;
+                        }
                     }
                 }
+
+                   
             }
             else
             {
@@ -269,7 +281,7 @@ namespace Parser2._0
 
         private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+           
         }
 
         private void dataGridView2_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -300,11 +312,18 @@ namespace Parser2._0
 
         private void button8_Click(object sender, EventArgs e)
         {
-            json_dataTable = json_Manager.LoadJsonFile();
-            if(json_dataTable != null)
+            if (this.comboBox2.SelectedIndex != -1 && !String.IsNullOrEmpty(this.comboBox2.SelectedItem.ToString()))
             {
-                dataGridView1.DataSource = json_dataTable;
-                json_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+                json_dataTable = json_Manager.LoadJsonFile(this.comboBox2.SelectedItem.ToString());
+                if (json_dataTable != null)
+                {
+                    dataGridView1.DataSource = json_dataTable;
+                    json_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите алгоритм роботы с файлом!");
             }
         }
 
