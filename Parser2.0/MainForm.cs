@@ -228,7 +228,7 @@ namespace Parser2._0
                                 }
                                 dataGridViewComboBoxColumns[0].Items.Add(dataTable.Rows[i][0].ToString());
                                 dataGridView2.Rows[i].Cells[0].Value = dataTable.Rows[i][0].ToString();
-                                dataGridView2.Rows[i].Cells[1].Value = excel_dataTable.Rows[arr[0]][arr[1]].ToString();
+                                dataGridView2.Rows[i].Cells[1].Value = (dataGridView1.DataSource as DataTable).Rows[arr[0]][arr[1]].ToString();
                                 dataGridView2.Rows[i].Cells[2].Value = dataTable.Rows[i][2].ToString();
                                 dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
                                 dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
