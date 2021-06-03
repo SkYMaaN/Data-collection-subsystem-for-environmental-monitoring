@@ -9,7 +9,7 @@ namespace Parser2._0
     class FileWork_Manager
     {
         MainForm mainForm;
-        internal List<string> datalist;
+        internal List<Object> datalist;
         internal void ClearLocalDate()
         {
             if (datalist.Count > 0)
@@ -18,7 +18,7 @@ namespace Parser2._0
                 datalist.Clear();
             }
         }
-        internal List<string> GetLocalData()
+        internal List<Object> GetLocalData()
         {
             if (datalist.Count > 0)
             {
@@ -29,11 +29,11 @@ namespace Parser2._0
                 return null;
             }
         }
-        internal List<string> GetLocalData(int count)
+        internal List<Object> GetLocalData(int count)
         {
             if (datalist.Count > 0) 
             {
-                List<string> response = new List<string>();
+                List<Object> response = new List<Object>();
                 for(int i = 0; i < count;i++)
                 {
                     response.Add(datalist[i]);
@@ -60,7 +60,7 @@ namespace Parser2._0
                 return false;
             }
         }
-        internal void PushLocalData(string Data)
+        internal void PushLocalData(Object Data)
         {
             datalist.Add(Data);
         }
@@ -138,9 +138,13 @@ namespace Parser2._0
         {
             return datalist.Count;
         }
+        internal void PushArrayLocalData(List<Object> list)
+        {
+            datalist = list;
+        }
         internal FileWork_Manager(MainForm form)
         {
-            datalist = new List<string>();
+            datalist = new List<Object>();
             mainForm = form;
         }
     }

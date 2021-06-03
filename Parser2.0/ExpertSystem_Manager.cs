@@ -1,5 +1,4 @@
-﻿
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -160,7 +159,7 @@ namespace Parser2._0
                     //Название таблицы, количество полей
                     List<string> list = ParseOptions();
                     List<MySqlParameter> mySqlParameters = new List<MySqlParameter>();
-                    List<string> tempdata = new List<string>();
+                    List<Object> tempdata = new List<Object>();
                     tempdata.Add(mainForm.dataBase_Manager.GetNextPrimaryKey(list[0],"id").ToString());
                     tempdata.AddRange(mainForm.fileWork_Manager.GetLocalData(Convert.ToInt32(list[1])));
                     for(int i = 0; i < Convert.ToInt32(list[1])+1; i++)

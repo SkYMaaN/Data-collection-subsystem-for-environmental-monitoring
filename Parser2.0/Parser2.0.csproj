@@ -95,9 +95,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LocalData.cs" />
     <Compile Include="ExpertSystem_Manager.cs" />
     <Compile Include="FileWork_Manager.cs" />
     <Compile Include="JSON_Manager.cs" />
+    <Compile Include="LocalVarriable_Manager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LocalVarriable_Manager.Designer.cs">
+      <DependentUpon>LocalVarriable_Manager.cs</DependentUpon>
+    </Compile>
     <Compile Include="NotFindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +123,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveEcoBotObject_Pollutant.cs" />
     <Compile Include="SaveEcoBot_Object.cs" />
+    <EmbeddedResource Include="LocalVarriable_Manager.resx">
+      <DependentUpon>LocalVarriable_Manager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NotFindForm.resx">
       <DependentUpon>NotFindForm.cs</DependentUpon>
     </EmbeddedResource>

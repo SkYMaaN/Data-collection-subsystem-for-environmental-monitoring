@@ -37,13 +37,13 @@ namespace Parser2._0
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.button_RefreshVarriable = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button_ExecuteRegulations = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -62,7 +62,7 @@ namespace Parser2._0
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -148,6 +148,17 @@ namespace Parser2._0
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "JavaScript Object Notation";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "SaveEcoBot"});
+            this.comboBox2.Location = new System.Drawing.Point(9, 49);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(232, 24);
+            this.comboBox2.TabIndex = 3;
+            // 
             // button6
             // 
             this.button6.ForeColor = System.Drawing.Color.Black;
@@ -184,9 +195,9 @@ namespace Parser2._0
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox4.Controls.Add(this.button9);
             this.groupBox4.Controls.Add(this.listBox2);
             this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Controls.Add(this.button_RefreshVarriable);
             this.groupBox4.Controls.Add(this.listBox1);
             this.groupBox4.Controls.Add(this.button_ExecuteRegulations);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -196,15 +207,15 @@ namespace Parser2._0
             this.groupBox4.Size = new System.Drawing.Size(285, 192);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Управление";
+            this.groupBox4.Text = "Локальные данные";
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(196, 134);
+            this.listBox2.Location = new System.Drawing.Point(196, 164);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(75, 180);
+            this.listBox2.Size = new System.Drawing.Size(75, 20);
             this.listBox2.TabIndex = 7;
             // 
             // button3
@@ -218,24 +229,13 @@ namespace Parser2._0
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button_RefreshVarriable
-            // 
-            this.button_RefreshVarriable.ForeColor = System.Drawing.Color.Black;
-            this.button_RefreshVarriable.Location = new System.Drawing.Point(6, 103);
-            this.button_RefreshVarriable.Name = "button_RefreshVarriable";
-            this.button_RefreshVarriable.Size = new System.Drawing.Size(184, 23);
-            this.button_RefreshVarriable.TabIndex = 2;
-            this.button_RefreshVarriable.Text = "Обновить";
-            this.button_RefreshVarriable.UseVisualStyleBackColor = true;
-            this.button_RefreshVarriable.Click += new System.EventHandler(this.button_RefreshVarriable_Click);
-            // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(6, 134);
+            this.listBox1.Location = new System.Drawing.Point(6, 132);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(184, 180);
+            this.listBox1.Size = new System.Drawing.Size(184, 52);
             this.listBox1.TabIndex = 1;
             // 
             // button_ExecuteRegulations
@@ -429,16 +429,16 @@ namespace Parser2._0
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
-            // comboBox2
+            // button9
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "SaveEcoBot"});
-            this.comboBox2.Location = new System.Drawing.Point(9, 49);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(232, 24);
-            this.comboBox2.TabIndex = 3;
+            this.button9.ForeColor = System.Drawing.Color.Black;
+            this.button9.Location = new System.Drawing.Point(6, 103);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(184, 23);
+            this.button9.TabIndex = 8;
+            this.button9.Text = "Менеджер управления";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // MainForm
             // 
@@ -492,7 +492,6 @@ namespace Parser2._0
         private System.Windows.Forms.Button button_LoadRegulations;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button_ExecuteRegulations;
-        private System.Windows.Forms.Button button_RefreshVarriable;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
@@ -508,6 +507,7 @@ namespace Parser2._0
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button button9;
     }
 }
 

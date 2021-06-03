@@ -18,6 +18,20 @@ namespace Parser2._0
         DataTable json_dataTable = null;
         internal string TMP_For_Find = "null";
 
+        protected void RefreshList()
+        {
+            listBox1.Items.Clear();
+            if (fileWork_Manager.GetLocalData() != null)
+            {
+                List<Object> list = new List<object>();
+                list = fileWork_Manager.GetLocalData();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    listBox1.Items.Add((list[i] as LocalData).source + " : " + (list[i] as LocalData).value);
+                }
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -61,15 +75,6 @@ namespace Parser2._0
         private void button_ExecuteRegulations_Click(object sender, EventArgs e)
         {
             expertSystem_Manager.GetRegulations(dataGridView2);
-        }
-
-        private void button_RefreshVarriable_Click(object sender, EventArgs e)
-        {
-            listBox1.Items.Clear();
-            if (fileWork_Manager.GetLocalData() != null)
-            {
-                listBox1.Items.AddRange(fileWork_Manager.GetLocalData().ToArray());
-            }
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -274,7 +279,7 @@ namespace Parser2._0
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            button_RefreshVarriable_Click(sender, e);
+            this.RefreshList();
             listBox2.Items.Clear();
             listBox2.Items.Add(TMP_For_Find);
         }
@@ -335,6 +340,15 @@ namespace Parser2._0
                 button4_Click(sender, e);
                 json_dataTable = null;
             }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            LocalVarriable_Manager localVarriable_Manager = new LocalVarriable_Manager(this);
+            this.Hide();
+            localVarriable_Manager.StartPosition = FormStartPosition.CenterScreen;
+            localVarriable_Manager.ShowDialog();
+            this.Show();
         }
     }
 }
