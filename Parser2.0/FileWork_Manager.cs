@@ -14,7 +14,6 @@ namespace Parser2._0
         {
             if (datalist.Count > 0)
             {
-                mainForm.listBox1.Items.Clear();
                 datalist.Clear();
             }
         }
@@ -140,6 +139,7 @@ namespace Parser2._0
         }
         internal void PushArrayLocalData(List<Object> list)
         {
+            this.ClearLocalDate();
             datalist = list;
         }
         internal FileWork_Manager(MainForm form)

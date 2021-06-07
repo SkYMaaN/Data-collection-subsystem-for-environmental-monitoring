@@ -109,6 +109,7 @@ namespace Parser2._0
                     Result = "";
                 }
             }
+            MessageBox.Show("Команды успешно выполнены!");
         }
         private void Save()
         {

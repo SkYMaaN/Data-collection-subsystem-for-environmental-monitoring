@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -7,6 +8,7 @@ namespace Parser2._0
     class MSExcel_Manager
     {
         MainForm mainForm;
+        List<Excel.Worksheets> worksheets_list;
         private Excel.Application ExcelApplication = null; 
         private Excel.Workbook Workbook = null; 
         private Excel.Worksheet Worksheet = null; 
@@ -20,6 +22,10 @@ namespace Parser2._0
                 CloseExcelFile();
                 DataTable dataTable = new DataTable();
                 Workbook = ExcelApplication.Workbooks.Open(openFileDialog.FileName);
+                /*for(int i = 0; i < Workbook.Worksheets.Count; i++)
+                {
+                    worksheets_list.Add(Workbook.Sheets[i]);
+                }*/
                 Worksheet = Workbook.ActiveSheet;
                 lastCell = Worksheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell);
                 for (int i = 0; i < lastCell.Column; i++)
@@ -54,6 +60,7 @@ namespace Parser2._0
         internal MSExcel_Manager(MainForm form)
         {
             ExcelApplication = new Excel.Application();
+            worksheets_list = new List<Excel.Worksheets>();
             mainForm = form;
         }
         ~MSExcel_Manager()

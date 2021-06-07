@@ -30,7 +30,7 @@ namespace Parser2._0
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,14 +42,13 @@ namespace Parser2._0
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button_ExecuteRegulations = new System.Windows.Forms.Button();
+            this.localdata_datagrid = new System.Windows.Forms.DataGridView();
+            this.button9 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button_SaveRegulations = new System.Windows.Forms.Button();
             this.button_LoadRegulations = new System.Windows.Forms.Button();
+            this.button_ExecuteRegulations = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -62,29 +61,18 @@ namespace Parser2._0
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button9 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.localdata_datagrid)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(439, 46);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1324, 445);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // menuStrip1
             // 
@@ -109,7 +97,6 @@ namespace Parser2._0
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
-            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -131,6 +118,7 @@ namespace Parser2._0
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(430, 759);
             this.panel1.TabIndex = 2;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // groupBox5
             // 
@@ -195,59 +183,41 @@ namespace Parser2._0
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.groupBox4.Controls.Add(this.localdata_datagrid);
             this.groupBox4.Controls.Add(this.button9);
-            this.groupBox4.Controls.Add(this.listBox2);
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Controls.Add(this.listBox1);
-            this.groupBox4.Controls.Add(this.button_ExecuteRegulations);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox4.ForeColor = System.Drawing.Color.Gold;
-            this.groupBox4.Location = new System.Drawing.Point(12, 555);
+            this.groupBox4.Location = new System.Drawing.Point(12, 525);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(285, 192);
+            this.groupBox4.Size = new System.Drawing.Size(285, 222);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Локальные данные";
             // 
-            // listBox2
+            // localdata_datagrid
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(196, 164);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(75, 20);
-            this.listBox2.TabIndex = 7;
+            this.localdata_datagrid.AllowUserToAddRows = false;
+            this.localdata_datagrid.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.localdata_datagrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.localdata_datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.localdata_datagrid.Location = new System.Drawing.Point(6, 50);
+            this.localdata_datagrid.Name = "localdata_datagrid";
+            this.localdata_datagrid.ReadOnly = true;
+            this.localdata_datagrid.Size = new System.Drawing.Size(184, 166);
+            this.localdata_datagrid.TabIndex = 9;
             // 
-            // button3
+            // button9
             // 
-            this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(6, 50);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(184, 47);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Очистить локальную переменную";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(6, 132);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(184, 52);
-            this.listBox1.TabIndex = 1;
-            // 
-            // button_ExecuteRegulations
-            // 
-            this.button_ExecuteRegulations.ForeColor = System.Drawing.Color.Black;
-            this.button_ExecuteRegulations.Location = new System.Drawing.Point(6, 21);
-            this.button_ExecuteRegulations.Name = "button_ExecuteRegulations";
-            this.button_ExecuteRegulations.Size = new System.Drawing.Size(184, 23);
-            this.button_ExecuteRegulations.TabIndex = 0;
-            this.button_ExecuteRegulations.Text = "Выполнить правила";
-            this.button_ExecuteRegulations.UseVisualStyleBackColor = true;
-            this.button_ExecuteRegulations.Click += new System.EventHandler(this.button_ExecuteRegulations_Click);
+            this.button9.ForeColor = System.Drawing.Color.Black;
+            this.button9.Location = new System.Drawing.Point(6, 21);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(184, 23);
+            this.button9.TabIndex = 8;
+            this.button9.Text = "Менеджер управления";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // groupBox3
             // 
@@ -255,11 +225,12 @@ namespace Parser2._0
             this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.button_SaveRegulations);
             this.groupBox3.Controls.Add(this.button_LoadRegulations);
+            this.groupBox3.Controls.Add(this.button_ExecuteRegulations);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox3.ForeColor = System.Drawing.Color.Gold;
-            this.groupBox3.Location = new System.Drawing.Point(12, 400);
+            this.groupBox3.Location = new System.Drawing.Point(12, 383);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(285, 113);
+            this.groupBox3.Size = new System.Drawing.Size(285, 136);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Правила парсинга";
@@ -296,6 +267,17 @@ namespace Parser2._0
             this.button_LoadRegulations.Text = "Загрузить правила";
             this.button_LoadRegulations.UseVisualStyleBackColor = true;
             this.button_LoadRegulations.Click += new System.EventHandler(this.button_LoadRegulations_Click);
+            // 
+            // button_ExecuteRegulations
+            // 
+            this.button_ExecuteRegulations.ForeColor = System.Drawing.Color.Black;
+            this.button_ExecuteRegulations.Location = new System.Drawing.Point(9, 108);
+            this.button_ExecuteRegulations.Name = "button_ExecuteRegulations";
+            this.button_ExecuteRegulations.Size = new System.Drawing.Size(232, 23);
+            this.button_ExecuteRegulations.TabIndex = 0;
+            this.button_ExecuteRegulations.Text = "Выполнить правила";
+            this.button_ExecuteRegulations.UseVisualStyleBackColor = true;
+            this.button_ExecuteRegulations.Click += new System.EventHandler(this.button_ExecuteRegulations_Click);
             // 
             // groupBox2
             // 
@@ -399,7 +381,6 @@ namespace Parser2._0
             this.dataGridView2.Size = new System.Drawing.Size(1324, 243);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
-            this.dataGridView2.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView2_DataError);
             // 
             // label2
             // 
@@ -429,16 +410,16 @@ namespace Parser2._0
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
-            // button9
+            // dataGridView1
             // 
-            this.button9.ForeColor = System.Drawing.Color.Black;
-            this.button9.Location = new System.Drawing.Point(6, 103);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(184, 23);
-            this.button9.TabIndex = 8;
-            this.button9.Text = "Менеджер управления";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(439, 46);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(1324, 460);
+            this.dataGridView1.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -446,29 +427,30 @@ namespace Parser2._0
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(1775, 783);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Підсистема збору даних для проведення моніторингу довкілля";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.localdata_datagrid)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -494,13 +476,9 @@ namespace Parser2._0
         private System.Windows.Forms.Button button_ExecuteRegulations;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        internal System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
-        internal System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Timer timer1;
-        internal System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button button6;
@@ -508,6 +486,8 @@ namespace Parser2._0
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button button9;
+        internal System.Windows.Forms.DataGridView localdata_datagrid;
+        internal System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

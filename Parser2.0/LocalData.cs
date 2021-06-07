@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parser2._0
 {
@@ -10,15 +6,18 @@ namespace Parser2._0
     {
         internal string source;
         internal Object value;
-        internal LocalData(string source_, Object value_)
+        internal int id;
+        internal LocalData(string source_, Object value_, int id_)
         {
             this.source = source_;
             this.value = value_;
+            this.id = id_;
         }
         internal LocalData()
         {
-            source = null;
-            value = null;
+            source = "";
+            value = 0;
+            id = 0;
         }
     }
 }

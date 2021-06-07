@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Parser2._0
@@ -16,20 +15,24 @@ namespace Parser2._0
         DataTable db_dataTable = null;
         DataTable excel_dataTable = null;
         DataTable json_dataTable = null;
+        DataTable localdata_dataTable = null;
         internal string TMP_For_Find = "null";
 
-        protected void RefreshList()
+        protected void Refresh_DataGridView_LocalData()
         {
-            listBox1.Items.Clear();
+            localdata_datagrid.DataSource = null;
+            localdata_dataTable.Rows.Clear();
             if (fileWork_Manager.GetLocalData() != null)
             {
-                List<Object> list = new List<object>();
+                List<Object> list = new List<Object>();
                 list = fileWork_Manager.GetLocalData();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    listBox1.Items.Add((list[i] as LocalData).source + " : " + (list[i] as LocalData).value);
+                    localdata_dataTable.Rows.Add(localdata_dataTable.Rows.Count + 1, list[i].ToString());
                 }
             }
+            localdata_datagrid.DataSource = localdata_dataTable;
+            localdata_datagrid.Columns[0].Width = 35;
         }
 
         public MainForm()
@@ -41,6 +44,10 @@ namespace Parser2._0
             expertSystem_Manager = new ExpertSystem_Manager(this);
             fileWork_Manager = new FileWork_Manager(this);
             json_Manager = new JSON_Manager(this);
+            localdata_dataTable = new DataTable();
+            localdata_datagrid.DataSource = localdata_dataTable;
+            localdata_dataTable.Columns.Add("№");
+            localdata_dataTable.Columns.Add("Значение");
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -150,13 +157,7 @@ namespace Parser2._0
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            /*for(int i = 0; i < (dataGridView2.DataSource as DataTable).Rows.Count;i++)
-            {
-                if(dataGridView2.Rows[i].Cells[1].Value == null)
-                {
-                    dataGridView2.Rows[i].Cells[1].Value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                }
-            }*/
+            
         }
 
 
@@ -183,7 +184,7 @@ namespace Parser2._0
 
         private void button3_Click(object sender, EventArgs e)
         {
-            fileWork_Manager.ClearLocalDate();
+            
         }
 
         private void button_LoadRegulations_Click(object sender, EventArgs e)
@@ -279,19 +280,7 @@ namespace Parser2._0
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            this.RefreshList();
-            listBox2.Items.Clear();
-            listBox2.Items.Add(TMP_For_Find);
-        }
-
-        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void dataGridView2_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            
+            this.Refresh_DataGridView_LocalData();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -299,6 +288,7 @@ namespace Parser2._0
             if (excel_dataTable != null)
             {
                 excel_dataTable = null;
+                dataGridView1.DataSource = null;
                 button4_Click(sender, e);
             }
         }
@@ -336,19 +326,26 @@ namespace Parser2._0
         {
             if (json_dataTable != null)
             {
+                json_dataTable = null;
                 dataGridView1.DataSource = null;
                 button4_Click(sender, e);
-                json_dataTable = null;
             }
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
+            this.timer1.Enabled = false;
             LocalVarriable_Manager localVarriable_Manager = new LocalVarriable_Manager(this);
             this.Hide();
             localVarriable_Manager.StartPosition = FormStartPosition.CenterScreen;
             localVarriable_Manager.ShowDialog();
             this.Show();
+            this.timer1.Enabled = true;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

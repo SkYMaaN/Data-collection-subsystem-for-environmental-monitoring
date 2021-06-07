@@ -95,6 +95,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LocalData.cs" />
     <Compile Include="ExpertSystem_Manager.cs" />
     <Compile Include="FileWork_Manager.cs" />
