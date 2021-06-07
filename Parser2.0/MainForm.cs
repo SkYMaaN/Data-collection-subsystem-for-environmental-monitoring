@@ -32,7 +32,7 @@ namespace Parser2._0
                 }
             }
             localdata_datagrid.DataSource = localdata_dataTable;
-            localdata_datagrid.Columns[0].Width = 35;
+            //localdata_datagrid.Columns[0].Width = 35;
         }
 
         public MainForm()
@@ -68,6 +68,7 @@ namespace Parser2._0
             excel_dataTable = excel_Manager.LoadExcelFile();
             if (excel_dataTable != null)
             {
+                this.comboBox1.SelectedIndex = -1;
                 dataGridView1.DataSource = excel_dataTable;
                 expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
             }
@@ -82,6 +83,7 @@ namespace Parser2._0
         private void button_ExecuteRegulations_Click(object sender, EventArgs e)
         {
             expertSystem_Manager.GetRegulations(dataGridView2);
+           // this.Refresh_DataGridView_LocalData();
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -173,6 +175,7 @@ namespace Parser2._0
         {
             if (excel_dataTable != null)
             {
+                this.comboBox1.SelectedIndex = -1;
                 dataGridView1.DataSource = excel_dataTable;
                 expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
             }
@@ -297,6 +300,7 @@ namespace Parser2._0
         {
             if(json_dataTable != null)
             {
+                this.comboBox1.SelectedIndex = -1;
                 dataGridView1.DataSource = json_dataTable;
             }
             else
@@ -312,6 +316,7 @@ namespace Parser2._0
                 json_dataTable = json_Manager.LoadJsonFile(this.comboBox2.SelectedItem.ToString());
                 if (json_dataTable != null)
                 {
+                    this.comboBox1.SelectedIndex = -1;
                     dataGridView1.DataSource = json_dataTable;
                     json_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
                 }
@@ -343,9 +348,24 @@ namespace Parser2._0
             this.timer1.Enabled = true;
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void dataGridView2_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+            e.Cancel = false;
+        }
 
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            this.Refresh_DataGridView_LocalData();
+        }
+
+        private void localdata_datagrid_MouseEnter(object sender, EventArgs e)
+        {
+            this.timer1.Enabled = false;
+        }
+
+        private void localdata_datagrid_MouseLeave(object sender, EventArgs e)
+        {
+            this.timer1.Enabled = true;
         }
     }
 }

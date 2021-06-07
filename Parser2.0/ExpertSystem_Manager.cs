@@ -70,46 +70,71 @@ namespace Parser2._0
         }
         internal void GetRegulations(DataGridView dataGridView)
         {
-            for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
+            int error_count = 0;
+            try
             {
-                DataGridViewRow dataGridViewRow = new DataGridViewRow();
-                dataGridViewRow = dataGridView.Rows[i];
-                if (!Program.IsDataGridViewRowEmpty(dataGridViewRow))
+                for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
                 {
-                    if (dataGridViewRow.Cells[0].Value != null)
+                    DataGridViewRow dataGridViewRow = new DataGridViewRow();
+                    dataGridViewRow = dataGridView.Rows[i];
+                    if (!Program.IsDataGridViewRowEmpty(dataGridViewRow))
                     {
-                        InputData = dataGridViewRow.Cells[0].Value.ToString();
+                        if (dataGridViewRow.Cells[0].Value != null)
+                        {
+                            InputData = dataGridViewRow.Cells[0].Value.ToString();
+                        }
+                        if (dataGridViewRow.Cells[1].Value != null)
+                        {
+                            ValueInFile = dataGridViewRow.Cells[1].Value.ToString();
+                        }
+                        if (dataGridViewRow.Cells[2].Value != null)
+                        {
+                            OutputDataType = dataGridViewRow.Cells[2].Value.ToString();
+                        }
+                        if (dataGridViewRow.Cells[3].Value != null)
+                        {
+                            Command = dataGridViewRow.Cells[3].Value.ToString();
+                        }
+                        if (dataGridViewRow.Cells[4].Value != null)
+                        {
+                            Options = dataGridViewRow.Cells[4].Value.ToString();
+                        }
+                        if (dataGridViewRow.Cells[5].Value != null)
+                        {
+                            Result = dataGridViewRow.Cells[5].Value.ToString();
+                        }
+                        this.ExecuteCommand();
+                        InputData = "";
+                        ValueInFile = "";
+                        OutputDataType = "";
+                        Command = "";
+                        Options = "";
+                        Result = "";
                     }
-                    if (dataGridViewRow.Cells[1].Value != null)
+                    else
                     {
-                        ValueInFile = dataGridViewRow.Cells[1].Value.ToString();
+                        InputData = "";
+                        ValueInFile = "";
+                        OutputDataType = "";
+                        Command = "";
+                        Options = "";
+                        Result = "";
                     }
-                    if (dataGridViewRow.Cells[2].Value != null)
-                    {
-                        OutputDataType = dataGridViewRow.Cells[2].Value.ToString();
-                    }
-                    if (dataGridViewRow.Cells[3].Value != null)
-                    {
-                        Command = dataGridViewRow.Cells[3].Value.ToString();
-                    }
-                    if (dataGridViewRow.Cells[4].Value != null)
-                    {
-                        Options = dataGridViewRow.Cells[4].Value.ToString();
-                    }
-                    if (dataGridViewRow.Cells[5].Value != null)
-                    {
-                        Result = dataGridViewRow.Cells[5].Value.ToString();
-                    }
-                    this.ExecuteCommand();
-                    InputData = "";
-                    ValueInFile = "";
-                    OutputDataType = "";
-                    Command = "";
-                    Options = "";
-                    Result = "";
                 }
             }
-            MessageBox.Show("Команды успешно выполнены!");
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ошибка выполнения правил: " + ex.Message);
+                error_count++;
+            }
+            if (error_count == 0)
+            {
+                MessageBox.Show("Команды успешно выполнены!");
+            }
+            else
+            {
+                MessageBox.Show("При выполнении части команд возникли ошибки! Общее количество ошибок: " + error_count);
+            }
         }
         private void Save()
         {
@@ -121,7 +146,7 @@ namespace Parser2._0
             //Название таблицы, Поле условия   ||   result = Желаемое поле,
             DataBase_Manager dataBase_Manager = new DataBase_Manager();
             dataBase_Manager.ConnectToDB();
-            List<string> list = this.ParseOptions();
+            List<Object> list = this.ParseOptions();
             Object code = dataBase_Manager.ExecScalar("SELECT " + this.Result.Replace(";","") + " FROM " + list[0].ToString() + " WHERE " + list[1].ToString() + " = '" + this.ValueInFile.Trim() + "'");
             if(code != null)
             {
@@ -158,16 +183,18 @@ namespace Parser2._0
                 {
                     //Порядок полей
                     //Название таблицы, количество полей
-                    List<string> list = ParseOptions();
+                    List<Object> list = ParseOptions();
+                    string tableName = list[0].ToString();
+                    list.RemoveAt(0);
                     List<MySqlParameter> mySqlParameters = new List<MySqlParameter>();
                     List<Object> tempdata = new List<Object>();
-                    tempdata.Add(mainForm.dataBase_Manager.GetNextPrimaryKey(list[0],"id").ToString());
-                    tempdata.AddRange(mainForm.fileWork_Manager.GetLocalData(Convert.ToInt32(list[1])));
-                    for(int i = 0; i < Convert.ToInt32(list[1])+1; i++)
+                    tempdata.Add(mainForm.dataBase_Manager.GetNextPrimaryKey(tableName, "id").ToString());
+                    tempdata.AddRange(mainForm.fileWork_Manager.GetLocalData(list));
+                    for(int i = 0; i < tempdata.Count; i++)
                     {
                         mySqlParameters.Add(new MySqlParameter("@" + i.ToString(), tempdata[i]));
                     }                    
-                    mainForm.dataBase_Manager.Insert(list[0], mySqlParameters);
+                    mainForm.dataBase_Manager.Insert(tableName, mySqlParameters);
                 }
             }
             catch (MySqlException ex)
@@ -175,9 +202,9 @@ namespace Parser2._0
                 MessageBox.Show("Error:  " + ex);
             }
         }
-        List<string> ParseOptions()
+        List<Object> ParseOptions()
         {
-            List<string> response = new List<string>();
+            List<Object> response = new List<Object>();
             string str = "";
             for(int i = 0; i < Options.Length;i++)
             {

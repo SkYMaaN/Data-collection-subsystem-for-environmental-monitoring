@@ -48,6 +48,30 @@ namespace Parser2._0
                 return null;
             }
         }
+        internal List<Object> GetLocalData(List<Object> ids)
+        {
+            if (datalist.Count > 0)
+            {
+                List<Object> response = new List<Object>();
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    for(int j = 0; j < (mainForm.localdata_datagrid.DataSource as DataTable).Rows.Count; j++)
+                    {     
+                        if (Convert.ToInt32(ids[i]) == Convert.ToInt32((mainForm.localdata_datagrid.DataSource as DataTable).Rows[j][0]))
+                        {
+                            response.Add((mainForm.localdata_datagrid.DataSource as DataTable).Rows[j][1]);
+                            //(mainForm.localdata_datagrid.DataSource as DataTable).Rows.RemoveAt(j--);
+                        }
+                    }
+                    
+                }
+                return response;
+            }
+            else
+            {
+                return null;
+            }
+        }
         internal bool isEmpty()
         {
             if (datalist.Count < 0)
@@ -63,6 +87,18 @@ namespace Parser2._0
         {
             datalist.Add(Data);
         }
+        int CalculateFilledRowCount(DataGridView dataGridView)
+        {
+            int count = 0;
+            for(int i = 0; i < dataGridView.Rows.Count; i++)
+            {
+                if(!Program.IsDataGridViewRowEmpty(dataGridView.Rows[i]))
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
         internal void SaveParsingRegulations(DataGridView dataGridView)
         {
             try
@@ -73,7 +109,10 @@ namespace Parser2._0
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     DataTable dataTable = new DataTable();
-                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    for (int i = 0; i < CalculateFilledRowCount(dataGridView
+                        
+                        
+                        ); i++)
                     {
                         if (!Program.IsDataGridViewRowEmpty(dataGridView.Rows[i]))
                         {

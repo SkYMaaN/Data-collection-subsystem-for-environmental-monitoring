@@ -89,6 +89,7 @@ namespace Parser2._0
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(160, 24);
             this.comboBox1.TabIndex = 6;
+            this.comboBox1.Visible = false;
             // 
             // label2
             // 
@@ -98,6 +99,7 @@ namespace Parser2._0
             this.label2.Size = new System.Drawing.Size(121, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "Источник данных";
+            this.label2.Visible = false;
             // 
             // button3
             // 
@@ -158,7 +160,7 @@ namespace Parser2._0
             this.менюToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(590, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(483, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -182,7 +184,7 @@ namespace Parser2._0
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.ClientSize = new System.Drawing.Size(590, 585);
+            this.ClientSize = new System.Drawing.Size(483, 585);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
