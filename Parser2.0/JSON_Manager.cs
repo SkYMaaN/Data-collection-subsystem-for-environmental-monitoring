@@ -91,6 +91,8 @@ namespace Parser2._0
                 }
                 saveEcoBot_Objects.Add(saveEcoBot_Object);
             }
+            //========================================================================================================
+            //========================================================================================================
             dataTable.Columns.Add("id");
             dataTable.Columns.Add("cityName");
             dataTable.Columns.Add("stationName");
@@ -98,16 +100,47 @@ namespace Parser2._0
             dataTable.Columns.Add("timezone");
             dataTable.Columns.Add("latitude");
             dataTable.Columns.Add("longitude");
-            dataTable.Columns.Add("pollutants");
-            for(int i = 0; i < saveEcoBot_Objects.Count; i++)
+            //dataTable.Columns.Add("pollutants");
+            //========================================================================================================
+            //========================================================================================================
+            int max_pollutant_count = 0;
+            for (int i = 0; i < saveEcoBot_Objects.Count; i++)
             {
-                List<string> pollutant = new List<string>();
+                int tmp = 0;
                 for (int j = 0; j < saveEcoBot_Objects[i].pollutants.Count; j++)
                 {
-                    pollutant.Add(saveEcoBot_Objects[i].pollutants[j].pol + " " + saveEcoBot_Objects[i].pollutants[j].unit + " " + saveEcoBot_Objects[i].pollutants[j].time + " " + saveEcoBot_Objects[i].pollutants[j].value + " " + saveEcoBot_Objects[i].pollutants[j].averaging);
+                    tmp++;
                 }
-                dataTable.Rows.Add(saveEcoBot_Objects[i].id, saveEcoBot_Objects[i].cityName, saveEcoBot_Objects[i].stationName, saveEcoBot_Objects[i].localName, saveEcoBot_Objects[i].timezone, saveEcoBot_Objects[i].latitude, saveEcoBot_Objects[i].longitude, String.Join(" , ", pollutant));
-                pollutant.Clear();
+                if(tmp > max_pollutant_count)
+                {
+                    max_pollutant_count = tmp;
+                    tmp = 0;
+                }
+            }
+            for(int i = 0; i < max_pollutant_count; i++)
+            {
+                dataTable.Columns.Add("Pollutant № "+i);
+                dataTable.Columns.Add("Value № "+i);
+            }
+            //========================================================================================================
+            //========================================================================================================
+            DataRow dataRow;
+            for (int i = 0; i < saveEcoBot_Objects.Count; i++)
+            {
+                dataRow = dataTable.NewRow();
+                dataRow["id"] = saveEcoBot_Objects[i].id;
+                dataRow["cityName"] = saveEcoBot_Objects[i].cityName;
+                dataRow["stationName"] = saveEcoBot_Objects[i].stationName;
+                dataRow["localName"] = saveEcoBot_Objects[i].localName;
+                dataRow["timezone"] = saveEcoBot_Objects[i].timezone;
+                dataRow["latitude"] = saveEcoBot_Objects[i].latitude;
+                dataRow["longitude"] = saveEcoBot_Objects[i].longitude;
+                for (int j = 0, idx = j; j < saveEcoBot_Objects[i].pollutants.Count; idx += 2, j++) 
+                {
+                    dataRow[7 + idx] = saveEcoBot_Objects[i].pollutants[j].pol;
+                    dataRow[8 + idx] = saveEcoBot_Objects[i].pollutants[j].value;
+                }
+                dataTable.Rows.Add(dataRow);
             }
         }
         internal JSON_Manager(MainForm mainForm_)
