@@ -103,42 +103,42 @@ namespace Parser2._0
         {
             try
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.DefaultExt = "(*.json) | *.json";
-                saveFileDialog.Filter = "(*.json) | *.json";
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                if (dataGridView.Rows.Count > 1)
                 {
-                    DataTable dataTable = new DataTable();
-                    for (int i = 0; i < CalculateFilledRowCount(dataGridView
-                        
-                        
-                        ); i++)
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.DefaultExt = "(*.json) | *.json";
+                    saveFileDialog.Filter = "(*.json) | *.json";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        if (!Program.IsDataGridViewRowEmpty(dataGridView.Rows[i]))
+                        DataTable dataTable = new DataTable();
+                        for (int i = 0; i < CalculateFilledRowCount(dataGridView); i++)
                         {
-                            dataTable.Rows.Add();
-                            for (int j = 0; j < dataGridView.Columns.Count; j++)
+                            if (!Program.IsDataGridViewRowEmpty(dataGridView.Rows[i]))
                             {
-                                dataTable.Columns.Add();
-                                if (dataGridView.Rows[i].Cells[j].Value != null)
+                                dataTable.Rows.Add();
+                                for (int j = 0; j < dataGridView.Columns.Count; j++)
                                 {
-                                    dataTable.Rows[i][j] = dataGridView.Rows[i].Cells[j].Value.ToString();
-                                }
-                                else
-                                {
-                                    dataTable.Rows[i][j] = null;
+                                    dataTable.Columns.Add();
+                                    if (dataGridView.Rows[i].Cells[j].Value != null)
+                                    {
+                                        dataTable.Rows[i][j] = dataGridView.Rows[i].Cells[j].Value.ToString();
+                                    }
+                                    else
+                                    {
+                                        dataTable.Rows[i][j] = null;
+                                    }
                                 }
                             }
                         }
-                    }
-                    for(int i = 0; i < dataTable.Rows.Count; i++)
-                    {
-                        dataTable.Rows[i][1] = null;
-                    }
-                    string JSONstring = Newtonsoft.Json.JsonConvert.SerializeObject(dataTable);
-                    using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
-                    {
-                        fs.Write(System.Text.Encoding.Default.GetBytes(JSONstring), 0, System.Text.Encoding.Default.GetBytes(JSONstring).Length);
+                        for (int i = 0; i < dataTable.Rows.Count; i++)
+                        {
+                            dataTable.Rows[i][1] = null;
+                        }
+                        string JSONstring = Newtonsoft.Json.JsonConvert.SerializeObject(dataTable);
+                        using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                        {
+                            fs.Write(System.Text.Encoding.Default.GetBytes(JSONstring), 0, System.Text.Encoding.Default.GetBytes(JSONstring).Length);
+                        }
                     }
                 }
             }

@@ -12,8 +12,8 @@ namespace Parser2._0
         internal ExpertSystem_Manager expertSystem_Manager;
         internal FileWork_Manager fileWork_Manager;
         internal JSON_Manager json_Manager;
+        List<DataTable> excel_dataTables = null;
         DataTable db_dataTable = null;
-        DataTable excel_dataTable = null;
         DataTable json_dataTable = null;
         DataTable localdata_dataTable = null;
         internal string TMP_For_Find = "null";
@@ -65,25 +65,22 @@ namespace Parser2._0
 
         private void button_LoadExcel_Click(object sender, EventArgs e)
         {
-            excel_dataTable = excel_Manager.LoadExcelFile();
-            if (excel_dataTable != null)
+            excel_dataTables = excel_Manager.LoadExcelSheets();
+            if (excel_dataTables != null)
             {
+                this.tabControl1.TabPages.Clear();
+                for (int i = 0; i < excel_dataTables.Count; i++)
+                {
+                    this.tabControl1.TabPages.Add(new CustomTabPage(excel_dataTables[i], excel_dataTables[i].Rows[0][0].ToString(), "ExcelType"));
+                }
                 this.comboBox1.SelectedIndex = -1;
-                dataGridView1.DataSource = excel_dataTable;
-                expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+                expertSystem_Manager.Get_ValueInFile((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
             }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            db_dataTable = dataBase_Manager.SelectAll_DataTable("SELECT * FROM " + comboBox1.SelectedItem.ToString());
-            dataGridView1.DataSource = db_dataTable;
         }
 
         private void button_ExecuteRegulations_Click(object sender, EventArgs e)
         {
             expertSystem_Manager.GetRegulations(dataGridView2);
-           // this.Refresh_DataGridView_LocalData();
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -115,7 +112,7 @@ namespace Parser2._0
                                         result = "";
                                     }
                                 }
-                                dataGridView2.Rows[e.RowIndex].Cells[1].Value = dataGridView1.Rows[arr[0]].Cells[arr[1]].Value.ToString();
+                                dataGridView2.Rows[e.RowIndex].Cells[1].Value = (tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView.Rows[arr[0]].Cells[arr[1]].Value.ToString();
                             }
                         }
                         catch
@@ -135,11 +132,11 @@ namespace Parser2._0
                             else
                             {
                                 string str = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
-                                for (int i = 0; i < (dataGridView1.DataSource as DataTable).Columns.Count; i++)
+                                for (int i = 0; i < ((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView.DataSource as DataTable).Columns.Count; i++)
                                 {
-                                    for (int j = 0; j < (dataGridView1.DataSource as DataTable).Rows.Count; j++)
+                                    for (int j = 0; j < ((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView.DataSource as DataTable).Rows.Count; j++)
                                     {
-                                        if ((dataGridView1.DataSource as DataTable).Rows[j][i].ToString() == str)
+                                        if (((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView.DataSource as DataTable).Rows[j][i].ToString() == str)
                                         {
                                             dataGridView2.Rows[e.RowIndex].Cells[0].Value = "[" + j + ":" + i + "]";
                                             break;
@@ -157,42 +154,19 @@ namespace Parser2._0
             }
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
-
         private void button2_Click(object sender, EventArgs e)
         {
-            if (db_dataTable != null)
+            if (comboBox1.SelectedIndex != -1)
             {
-                dataGridView1.DataSource = db_dataTable;
+                db_dataTable = dataBase_Manager.SelectAll_DataTable("SELECT * FROM " + comboBox1.SelectedItem.ToString());
+                this.tabControl1.TabPages.Add(new CustomTabPage(db_dataTable, this.comboBox1.SelectedItem.ToString(), "DataBaseType"));
+                comboBox1.SelectedIndex = -1;
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (excel_dataTable != null)
-            {
-                this.comboBox1.SelectedIndex = -1;
-                dataGridView1.DataSource = excel_dataTable;
-                expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
-            }
-            else
-            {
-                MessageBox.Show("Сначало откройте Excel файл!");
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void button_LoadRegulations_Click(object sender, EventArgs e)
         {
-            if (excel_dataTable != null)
+            if (excel_dataTables != null && excel_dataTables.Count > 0)
             {
                 (dataGridView2.DataSource as DataTable).Clear();
                 (dataGridView2.DataSource as DataTable).Rows.Clear();
@@ -237,7 +211,7 @@ namespace Parser2._0
                                 }
                                 dataGridViewComboBoxColumns[0].Items.Add(dataTable.Rows[i][0].ToString());
                                 dataGridView2.Rows[i].Cells[0].Value = dataTable.Rows[i][0].ToString();
-                                dataGridView2.Rows[i].Cells[1].Value = (dataGridView1.DataSource as DataTable).Rows[arr[0]][arr[1]].ToString();
+                                dataGridView2.Rows[i].Cells[1].Value = ((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView.DataSource as DataTable).Rows[arr[0]][arr[1]].ToString();
                                 dataGridView2.Rows[i].Cells[2].Value = dataTable.Rows[i][2].ToString();
                                 dataGridView2.Rows[i].Cells[3].Value = dataTable.Rows[i][3].ToString();
                                 dataGridView2.Rows[i].Cells[4].Value = dataTable.Rows[i][4].ToString();
@@ -273,7 +247,10 @@ namespace Parser2._0
         private void button4_Click(object sender, EventArgs e)
         {
             Program.BuildComboBoxDataGridView(dataGridView2);
-            expertSystem_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+            if (tabControl1.SelectedIndex != -1)
+            {
+                expertSystem_Manager.Get_ValueInFile((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
+            }
         }
 
         private void button_SaveRegulations_Click(object sender, EventArgs e)
@@ -288,24 +265,17 @@ namespace Parser2._0
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (excel_dataTable != null)
+            if (excel_dataTables != null && excel_dataTables.Count > 0)
             {
-                excel_dataTable = null;
-                dataGridView1.DataSource = null;
+                for(int i = 0; i < tabControl1.TabPages.Count; i++)
+                {
+                    if((tabControl1.TabPages[i] as CustomTabPage).Type == "ExcelType")
+                    {
+                        tabControl1.TabPages.RemoveAt(i--);
+                    }
+                }
+                excel_Manager.CloseExcelFile();
                 button4_Click(sender, e);
-            }
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            if(json_dataTable != null)
-            {
-                this.comboBox1.SelectedIndex = -1;
-                dataGridView1.DataSource = json_dataTable;
-            }
-            else
-            {
-                MessageBox.Show("Сначало загрузите JSON файл");
             }
         }
 
@@ -317,8 +287,9 @@ namespace Parser2._0
                 if (json_dataTable != null)
                 {
                     this.comboBox1.SelectedIndex = -1;
-                    dataGridView1.DataSource = json_dataTable;
-                    json_Manager.Get_ValueInFile(dataGridView1, dataGridView2);
+                    this.tabControl1.TabPages.Add(new CustomTabPage(json_dataTable, "JSON_" + this.comboBox2.SelectedItem.ToString(), "JSONType"));
+                    this.comboBox2.SelectedIndex = -1;
+                    json_Manager.Get_ValueInFile((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
                 }
             }
             else
@@ -331,8 +302,14 @@ namespace Parser2._0
         {
             if (json_dataTable != null)
             {
+                for(int i = 0; i < tabControl1.TabPages.Count; i++)
+                {
+                    if((tabControl1.TabPages[i] as CustomTabPage).Type == "JSONType")
+                    {
+                        tabControl1.TabPages.RemoveAt(i--);
+                    }
+                }
                 json_dataTable = null;
-                dataGridView1.DataSource = null;
                 button4_Click(sender, e);
             }
         }
@@ -366,6 +343,30 @@ namespace Parser2._0
         private void localdata_datagrid_MouseLeave(object sender, EventArgs e)
         {
             this.timer1.Enabled = true;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (db_dataTable != null)
+            {
+                for (int i = 0; i < tabControl1.TabPages.Count; i++)
+                {
+                    if ((tabControl1.TabPages[i] as CustomTabPage).Type == "DataBaseType")
+                    {
+                        tabControl1.TabPages.RemoveAt(i--);
+                    }
+                }
+                button4_Click(sender, e);
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex != -1)
+            {
+                Program.BuildComboBoxDataGridView(dataGridView2);
+                expertSystem_Manager.Get_ValueInFile((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
+            }
         }
     }
 }

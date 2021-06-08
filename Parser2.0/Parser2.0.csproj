@@ -126,6 +126,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveEcoBotObject_Pollutant.cs" />
     <Compile Include="SaveEcoBot_Object.cs" />
+    <EmbeddedResource Include="ExcelTabPage.resx">
+      <DependentUpon>ExcelTabPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LocalVarriable_Manager.resx">
       <DependentUpon>LocalVarriable_Manager.cs</DependentUpon>
     </EmbeddedResource>

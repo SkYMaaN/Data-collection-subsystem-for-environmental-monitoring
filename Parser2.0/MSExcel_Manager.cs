@@ -8,48 +8,53 @@ namespace Parser2._0
     class MSExcel_Manager
     {
         MainForm mainForm;
-        List<Excel.Worksheets> worksheets_list;
+        List<Excel.Worksheet> worksheets_list;
         private Excel.Application ExcelApplication = null; 
-        private Excel.Workbook Workbook = null; 
-        private Excel.Worksheet Worksheet = null; 
+        private Excel.Workbook Workbook = null;  
         private Excel.Range lastCell; 
-        internal DataTable LoadExcelFile()
+        internal List<DataTable> LoadExcelSheets()
         {
+            List<DataTable> dataTables = new List<DataTable>();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "(*.xlsx, *.xls) | *.xlsx; *.xls";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 CloseExcelFile();
-                DataTable dataTable = new DataTable();
+                DataTable dataTable;
                 Workbook = ExcelApplication.Workbooks.Open(openFileDialog.FileName);
-                /*for(int i = 0; i < Workbook.Worksheets.Count; i++)
+                foreach (Excel.Worksheet worksheet in Workbook.Worksheets)
                 {
-                    worksheets_list.Add(Workbook.Sheets[i]);
-                }*/
-                Worksheet = Workbook.ActiveSheet;
-                lastCell = Worksheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell);
-                for (int i = 0; i < lastCell.Column; i++)
-                {
-                    dataTable.Columns.Add();
-                    for (int j = 0; j < lastCell.Row; j++)
-                    {
-                        dataTable.Rows.Add();
-                        dataTable.Rows[j][i] = Worksheet.Cells[j + 1, i + 1].Text;
-                    }
+                    worksheets_list.Add(worksheet);
                 }
-                return dataTable;
+                for(int i = 0; i < worksheets_list.Count; i++)
+                {
+                    dataTable = new DataTable();
+                    lastCell = worksheets_list[i].Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell);
+                    for (int j = 0; j < lastCell.Column; j++)
+                    {
+                        dataTable.Columns.Add();
+                        for (int k = 0; k < lastCell.Row; k++)
+                        {
+                            dataTable.Rows.Add();
+                            dataTable.Rows[k][j] = worksheets_list[i].Cells[k + 1, j + 1].Text;
+                        }
+                    }
+                    dataTable.Rows[0][0] = worksheets_list[i].Name;
+                    dataTables.Add(dataTable);
+                }
+                return dataTables;
             }
             else
             {
                 return null;
             }
         }
-        private void CloseExcelFile()
+        internal void CloseExcelFile()
         {
-            if (Worksheet != null)
+            if (worksheets_list.Count > 0)
             {
+                worksheets_list.Clear();
                 Workbook = null;
-                Worksheet = null;
             }
         }
         internal void Dispose()
@@ -60,7 +65,7 @@ namespace Parser2._0
         internal MSExcel_Manager(MainForm form)
         {
             ExcelApplication = new Excel.Application();
-            worksheets_list = new List<Excel.Worksheets>();
+            worksheets_list = new List<Excel.Worksheet>();
             mainForm = form;
         }
         ~MSExcel_Manager()

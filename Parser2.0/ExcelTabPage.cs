@@ -1,24 +1,49 @@
 ﻿using System.Data;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Parser2._0
 {
-    class ExcelTabPage : TabPage
+    class CustomTabPage : TabPage
     {
         internal DataGridView dataGridView;
         internal DataTable dataTable;
-       /* internal ExcelTabPage()
+        internal string Type;
+        internal CustomTabPage(DataTable dataTable_, string sheetname, string Type_)
         {
-            dataGridView.Dock = DockStyle.Fill;
+            this.Type = Type_;
+            this.Text = sheetname;
             dataGridView = new DataGridView();
-            dataTable = new DataTable();
-        }*/
-        internal ExcelTabPage()
+            dataGridView.ReadOnly = true;
+            dataGridView.Dock = DockStyle.Fill;
+            this.Controls.Add(dataGridView);
+            dataTable = dataTable_;
+            dataGridView.DataSource = dataTable;
+        }
+        CustomTabPage(DataTable dataTable_, string sheetname)
         {
-            dataGridView.Dock = DockStyle.Fill;
+            this.Text = sheetname;
             dataGridView = new DataGridView();
-            dataTable = new DataTable();
+            dataGridView.ReadOnly = true;
+            dataGridView.Dock = DockStyle.Fill;
+            this.Controls.Add(dataGridView);
+            dataTable = dataTable_;
+            dataGridView.DataSource = dataTable;
+        }
+        CustomTabPage(DataTable dataTable_)
+        {         
+            dataGridView = new DataGridView();
+            dataGridView.ReadOnly = true;
+            dataGridView.Dock = DockStyle.Fill;
+            this.Controls.Add(dataGridView);
+            dataTable = dataTable_;
+            dataGridView.DataSource = dataTable;
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
         }
     }
 }
