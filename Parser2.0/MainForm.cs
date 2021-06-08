@@ -81,7 +81,10 @@ namespace Parser2._0
 
         private void button_ExecuteRegulations_Click(object sender, EventArgs e)
         {
-            expertSystem_Manager.GetRegulations(dataGridView2);
+            if (dataGridView2.Rows.Count > 1)
+            {
+                expertSystem_Manager.GetRegulations(dataGridView2);
+            }
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
