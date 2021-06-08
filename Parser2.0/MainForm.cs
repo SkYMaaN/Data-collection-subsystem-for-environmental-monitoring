@@ -18,7 +18,7 @@ namespace Parser2._0
         DataTable localdata_dataTable = null;
         internal string TMP_For_Find = "null";
 
-        protected void Refresh_DataGridView_LocalData()
+        internal void Refresh_DataGridView_LocalData()
         {
             localdata_datagrid.DataSource = null;
             localdata_dataTable.Rows.Clear();
@@ -68,13 +68,14 @@ namespace Parser2._0
             excel_dataTables = excel_Manager.LoadExcelSheets();
             if (excel_dataTables != null)
             {
-                this.tabControl1.TabPages.Clear();
                 for (int i = 0; i < excel_dataTables.Count; i++)
                 {
                     this.tabControl1.TabPages.Add(new CustomTabPage(excel_dataTables[i], excel_dataTables[i].Rows[0][0].ToString(), "ExcelType"));
                 }
-                this.comboBox1.SelectedIndex = -1;
-                expertSystem_Manager.Get_ValueInFile((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
+                if ((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).Type != "DataBaseType")
+                {
+                    expertSystem_Manager.Get_ValueInFile((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
+                }
             }
         }
 
@@ -247,7 +248,7 @@ namespace Parser2._0
         private void button4_Click(object sender, EventArgs e)
         {
             Program.BuildComboBoxDataGridView(dataGridView2);
-            if (tabControl1.SelectedIndex != -1)
+            if (tabControl1.SelectedIndex != -1 && (tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).Type != "DataBaseType")
             {
                 expertSystem_Manager.Get_ValueInFile((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
             }
@@ -362,10 +363,26 @@ namespace Parser2._0
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex != -1)
+            if (tabControl1.SelectedIndex != -1 && (tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).Type != "DataBaseType") 
             {
                 Program.BuildComboBoxDataGridView(dataGridView2);
                 expertSystem_Manager.Get_ValueInFile((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
+            }
+            else
+            {
+                Program.BuildComboBoxDataGridView(dataGridView2);
+            }
+        }
+
+        private void tabControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DialogResult result = MessageBox.Show("Вы действительно желаете удалить вкладку?", "Удаление вкладки!", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.Yes)
+                {
+                    (sender as TabControl).TabPages.RemoveAt((sender as TabControl).SelectedIndex);
+                }
             }
         }
     }

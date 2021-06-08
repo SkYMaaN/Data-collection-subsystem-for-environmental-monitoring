@@ -183,6 +183,7 @@ namespace Parser2._0
                 {
                     //Порядок полей
                     //Название таблицы, количество полей
+                    mainForm.Refresh_DataGridView_LocalData();
                     List<Object> list = ParseOptions();
                     string tableName = list[0].ToString();
                     list.RemoveAt(0);
