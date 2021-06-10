@@ -46,7 +46,7 @@ namespace Parser2._0
             dataGridViewComboBoxColumn.Items.Add("Add");
             dataGridViewComboBoxColumn.Items.Add("Save");
             dataGridViewComboBoxColumn.Items.Add("Find");
-            dataGridViewComboBoxColumn.Items.Add("Edit");
+            //dataGridViewComboBoxColumn.Items.Add("Edit");
             dataGridView.Columns.Add(dataGridViewComboBoxColumn);
             ////
             DataGridViewTextBoxColumn dataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();

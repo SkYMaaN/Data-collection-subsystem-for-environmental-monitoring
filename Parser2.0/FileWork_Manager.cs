@@ -147,6 +147,74 @@ namespace Parser2._0
                 MessageBox.Show("Error: " + ex);
             }
         }
+        internal void SaveParsingRegulations(DataGridView regulationsdatagrid, DataGridView localdatagrid)
+        {
+            try
+            {
+                if (regulationsdatagrid.Rows.Count > 1)
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.DefaultExt = "(*.json) | *.json";
+                    saveFileDialog.Filter = "(*.json) | *.json";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        DataTable dataTable = new DataTable();
+                        for (int i = 0; i < CalculateFilledRowCount(regulationsdatagrid); i++)
+                        {
+                            if (!Program.IsDataGridViewRowEmpty(regulationsdatagrid.Rows[i]))
+                            {
+                                dataTable.Rows.Add();
+                                for (int j = 0; j < regulationsdatagrid.Columns.Count; j++)
+                                {
+                                    dataTable.Columns.Add();
+                                    if (regulationsdatagrid.Rows[i].Cells[j].Value != null)
+                                    {
+                                        dataTable.Rows[i][j] = regulationsdatagrid.Rows[i].Cells[j].Value.ToString();
+                                    }
+                                    else
+                                    {
+                                        dataTable.Rows[i][j] = null;
+                                    }
+                                }
+                            }
+                        }
+                        for (int i = 0; i < dataTable.Rows.Count; i++)
+                        {
+                            dataTable.Rows[i][1] = null;
+                        }
+                        //========================================
+                        //========================================
+                        //========================================
+                        //========================================
+                        //========================================
+                        DataTable dataTable1 = new DataTable();
+                        dataTable1.Columns.Add("№");
+                        dataTable1.Columns.Add("Значение");
+                        for (int i = 0; i < datalist.Count; i++)
+                        {
+                            dataTable1.Rows.Add(dataTable1.Rows.Count + 1, datalist[i].ToString());
+                        }
+                        List<DataTable> dataTables = new List<DataTable>();
+                        dataTables.Add(dataTable);
+                        dataTables.Add(dataTable1);
+                        string JSONstring = Newtonsoft.Json.JsonConvert.SerializeObject(dataTables);
+
+                        using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                        {
+                            fs.Write(System.Text.Encoding.Default.GetBytes(JSONstring), 0, System.Text.Encoding.Default.GetBytes(JSONstring).Length);
+                        }
+                        /*using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                        {
+                            fs.Write(System.Text.Encoding.Default.GetBytes(JSONstring), 0, System.Text.Encoding.Default.GetBytes(JSONstring).Length);
+                        }*/
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex);
+            }
+        }
         internal DataTable LoadParsingRegulations()
         {
             try
@@ -155,14 +223,18 @@ namespace Parser2._0
                 openFileDialog.Filter = "(*.json) | *.json";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    DataTable dataTable = new DataTable();
+                    List<DataTable> dataTables = new List<DataTable>();
                     using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open))
                     {
                         byte[] array = new byte[fs.Length];
                         fs.Read(array, 0, array.Length);
-                        dataTable = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Data.DataTable>(System.Text.Encoding.Default.GetString(array));
+                        dataTables = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DataTable>>(System.Text.Encoding.Default.GetString(array));
                     }
-                    return dataTable;
+                    for(int i = 0; i < dataTables[1].Rows.Count; i++)
+                    {
+                        datalist.Add(dataTables[1].Rows[i][1].ToString());
+                    }
+                    return dataTables[0];
                 }
                 return null;
             }

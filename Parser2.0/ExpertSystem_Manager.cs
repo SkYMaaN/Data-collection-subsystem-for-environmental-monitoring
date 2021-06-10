@@ -193,7 +193,14 @@ namespace Parser2._0
                     tempdata.AddRange(mainForm.fileWork_Manager.GetLocalData(list));
                     for(int i = 0; i < tempdata.Count; i++)
                     {
-                        mySqlParameters.Add(new MySqlParameter("@" + i.ToString(), tempdata[i]));
+                        if (tempdata[i].ToString() == "null")
+                        {
+                            mySqlParameters.Add(new MySqlParameter("@" + i.ToString(), null));
+                        }
+                        else
+                        {
+                            mySqlParameters.Add(new MySqlParameter("@" + i.ToString(), tempdata[i]));
+                        }
                     }                    
                     mainForm.dataBase_Manager.Insert(tableName, mySqlParameters);
                 }

@@ -259,7 +259,7 @@ namespace Parser2._0
 
         private void button_SaveRegulations_Click(object sender, EventArgs e)
         {
-            fileWork_Manager.SaveParsingRegulations(dataGridView2);
+            fileWork_Manager.SaveParsingRegulations(dataGridView2, localdata_datagrid);
         }
 
         private void timer1_Tick_1(object sender, EventArgs e)
