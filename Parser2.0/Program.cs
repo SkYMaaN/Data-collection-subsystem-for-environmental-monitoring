@@ -57,6 +57,13 @@ namespace Parser2._0
             dataGridViewTextBoxColumn.HeaderText = "Result";
             dataGridView.Columns.Add(dataGridViewTextBoxColumn);
             //
+            DataColumn autoIncrementColumn = new DataColumn();
+            autoIncrementColumn.ReadOnly = true;
+            autoIncrementColumn.ColumnName = "№";
+            autoIncrementColumn.AutoIncrement = true;
+            autoIncrementColumn.AutoIncrementSeed = 1;
+            autoIncrementColumn.AutoIncrementStep = 1;
+            (dataGridView.DataSource as DataTable).Columns.Add(autoIncrementColumn);
             
             
         }

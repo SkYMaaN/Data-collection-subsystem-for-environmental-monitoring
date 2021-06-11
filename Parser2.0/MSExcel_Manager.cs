@@ -29,17 +29,25 @@ namespace Parser2._0
                 for(int i = 0; i < worksheets_list.Count; i++)
                 {
                     dataTable = new DataTable();
+                    DataColumn dataColumn = new DataColumn();
+                    dataColumn.ColumnName = "Row №";
+                    dataColumn.AutoIncrement = true;
+                    dataColumn.AutoIncrementStep = 1;
+                    dataColumn.AutoIncrementSeed = 1;
+                    dataTable.Columns.Add(dataColumn);
                     lastCell = worksheets_list[i].Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell);
-                    for (int j = 0; j < lastCell.Column; j++)
+                    dataTable.Rows.Add();
+                    dataTable.Columns.Add();
+                    for (int j = 1; j < lastCell.Column; j++)
                     {
                         dataTable.Columns.Add();
-                        for (int k = 0; k < lastCell.Row; k++)
+                        for (int k = 1; k < lastCell.Row; k++)
                         {
                             dataTable.Rows.Add();
-                            dataTable.Rows[k][j] = worksheets_list[i].Cells[k + 1, j + 1].Text;
+                            dataTable.Rows[k][j] = worksheets_list[i].Cells[k + 1, j].Text;
                         }
                     }
-                    dataTable.Rows[0][0] = worksheets_list[i].Name;
+                    dataTable.Rows[0][1] = worksheets_list[i].Name;
                     dataTables.Add(dataTable);
                 }
                 return dataTables;

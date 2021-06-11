@@ -8,7 +8,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Parser2._0
 {
-    
     class JSON_Manager
     {
         MainForm mainForm;
@@ -93,6 +92,12 @@ namespace Parser2._0
             }
             //========================================================================================================
             //========================================================================================================
+            DataColumn dataColumn = new DataColumn();
+            dataColumn.ColumnName = "Row №";
+            dataColumn.AutoIncrement = true;
+            dataColumn.AutoIncrementStep = 1;
+            dataColumn.AutoIncrementSeed = 1;
+            dataTable.Columns.Add(dataColumn);
             dataTable.Columns.Add("id");
             dataTable.Columns.Add("cityName");
             dataTable.Columns.Add("stationName");

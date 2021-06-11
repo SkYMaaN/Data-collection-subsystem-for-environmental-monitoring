@@ -203,10 +203,6 @@ namespace Parser2._0
                         {
                             fs.Write(System.Text.Encoding.Default.GetBytes(JSONstring), 0, System.Text.Encoding.Default.GetBytes(JSONstring).Length);
                         }
-                        /*using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
-                        {
-                            fs.Write(System.Text.Encoding.Default.GetBytes(JSONstring), 0, System.Text.Encoding.Default.GetBytes(JSONstring).Length);
-                        }*/
                     }
                 }
             }

@@ -29,7 +29,7 @@ namespace Parser2._0
                 dataGridViewComboBoxColumn1.Items.Add("Varriable");
                 DataTable dataTable = new DataTable();
                 dataTable = dataGridView.DataSource as DataTable;
-                for (int i = 0; i < dataTable.Columns.Count; i++)
+                for (int i = 1; i < dataTable.Columns.Count; i++)
                 {
                     for (int j = 0; j < dataTable.Rows.Count; j++)
                     {
