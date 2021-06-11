@@ -45,9 +45,9 @@ namespace Parser2._0
             fileWork_Manager = new FileWork_Manager(this);
             json_Manager = new JSON_Manager(this);
             localdata_dataTable = new DataTable();
-            localdata_datagrid.DataSource = localdata_dataTable;
             localdata_dataTable.Columns.Add("№");
             localdata_dataTable.Columns.Add("Значение");
+            localdata_datagrid.DataSource = localdata_dataTable;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -65,12 +65,12 @@ namespace Parser2._0
 
         private void button_LoadExcel_Click(object sender, EventArgs e)
         {
-            excel_dataTables = excel_Manager.LoadExcelSheets();
+            excel_dataTables = excel_Manager.LoadExcelSheetsXML();
             if (excel_dataTables != null)
             {
                 for (int i = 0; i < excel_dataTables.Count; i++)
                 {
-                    this.tabControl1.TabPages.Add(new CustomTabPage(excel_dataTables[i], excel_dataTables[i].Rows[0][1].ToString(), "ExcelType"));
+                    this.tabControl1.TabPages.Add(new CustomTabPage(excel_dataTables[i], excel_dataTables[i].Rows[0][0].ToString(), "ExcelType"));
                 }
                 if ((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).Type != "DataBaseType")
                 {
