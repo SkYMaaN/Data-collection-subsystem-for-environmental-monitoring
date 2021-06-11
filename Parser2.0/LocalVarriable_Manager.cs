@@ -65,20 +65,18 @@ namespace Parser2._0
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
+            if (dataGridView1.CurrentCell != null)
             {
-                dataTable.Rows[dataGridView1.CurrentCell.RowIndex][0] = null;
-                for(int i = dataGridView1.CurrentCell.RowIndex+1; i < dataTable.Rows.Count; i++)
-                { 
-                    for(int j = 0; j < dataTable.Columns.Count; j++)
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    foreach (DataGridViewRow dataGridViewRow in dataGridView1.SelectedRows)
                     {
-                        dataTable.Rows[i-1][j] = dataTable.Rows[i][j];
-                        dataTable.Rows[i][j] = null;
+                        dataGridView1.Rows.Remove(dataGridViewRow);
                     }
+                    textBox1.Text = "";
+                    RefreshDataGridView();
+                    MessageBox.Show("Удалено!");
                 }
-                textBox1.Text = "";
-                RefreshDataGridView();
-                MessageBox.Show("Удалено!");
             }
         }
 

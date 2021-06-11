@@ -388,5 +388,10 @@ namespace Parser2._0
                 }
             }
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            excel_Manager.Dispose();
+        }
     }
 }
