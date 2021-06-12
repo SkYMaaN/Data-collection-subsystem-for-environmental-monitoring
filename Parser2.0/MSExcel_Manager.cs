@@ -48,6 +48,8 @@ namespace Parser2._0
                     DataRow dataRow = dataTable.NewRow();
                     dataTable.Rows.InsertAt(dataRow, 0);
                     dataTable.Rows[0][0] = worksheets_names[i];
+                    dataTable.Columns.Add("!");
+                    dataTable.Columns["!"].SetOrdinal(0);
                     dataTables.Add(dataTable);
                     oleDbConnection.Close();
                     oleDbConnection.Dispose();

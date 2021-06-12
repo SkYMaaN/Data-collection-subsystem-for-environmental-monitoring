@@ -60,7 +60,7 @@ namespace Parser2._0
                         if (Convert.ToInt32(ids[i]) == Convert.ToInt32((mainForm.localdata_datagrid.DataSource as DataTable).Rows[j][0]))
                         {
                             response.Add((mainForm.localdata_datagrid.DataSource as DataTable).Rows[j][1]);
-                            //(mainForm.localdata_datagrid.DataSource as DataTable).Rows.RemoveAt(j--);
+                            
                         }
                     }
                     

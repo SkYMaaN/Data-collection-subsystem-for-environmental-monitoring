@@ -93,10 +93,7 @@ namespace Parser2._0
             //========================================================================================================
             //========================================================================================================
             DataColumn dataColumn = new DataColumn();
-            dataColumn.ColumnName = "Row №";
-            dataColumn.AutoIncrement = true;
-            dataColumn.AutoIncrementStep = 1;
-            dataColumn.AutoIncrementSeed = 1;
+            dataColumn.ColumnName = "№";
             dataTable.Columns.Add(dataColumn);
             dataTable.Columns.Add("id");
             dataTable.Columns.Add("cityName");
@@ -105,6 +102,7 @@ namespace Parser2._0
             dataTable.Columns.Add("timezone");
             dataTable.Columns.Add("latitude");
             dataTable.Columns.Add("longitude");
+            dataTable.TableNewRow += Program.DataTableNewRow_AutoIncrement;
             //dataTable.Columns.Add("pollutants");
             //========================================================================================================
             //========================================================================================================

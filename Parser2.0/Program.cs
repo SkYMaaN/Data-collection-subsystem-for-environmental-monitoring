@@ -58,14 +58,22 @@ namespace Parser2._0
             dataGridView.Columns.Add(dataGridViewTextBoxColumn);
             //
             DataColumn autoIncrementColumn = new DataColumn();
-            autoIncrementColumn.ReadOnly = true;
             autoIncrementColumn.ColumnName = "№";
-            autoIncrementColumn.AutoIncrement = true;
-            autoIncrementColumn.AutoIncrementSeed = 1;
-            autoIncrementColumn.AutoIncrementStep = 1;
             (dataGridView.DataSource as DataTable).Columns.Add(autoIncrementColumn);
-            
-            
+
+            (dataGridView.DataSource as DataTable).TableNewRow += DataTableNewRow_AutoIncrement;
+
+        }
+        internal static void DataTableNewRow_AutoIncrement(object sender, DataTableNewRowEventArgs e)
+        {
+            e.Row["№"] = (sender as DataTable).Rows.Count + 1;
+            if((sender as DataTable).Rows.Count > 0)
+            { 
+                for (int i = 1; i < Convert.ToInt32(e.Row["№"]); i++)
+                {
+                    (sender as DataTable).Rows[i-1]["№"] = i;
+                }
+            }
         }
         static void ClearDataGridView(DataGridView dataGridView)
         {

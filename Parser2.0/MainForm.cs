@@ -47,6 +47,7 @@ namespace Parser2._0
             localdata_dataTable = new DataTable();
             localdata_dataTable.Columns.Add("№");
             localdata_dataTable.Columns.Add("Значение");
+            localdata_dataTable.Columns.Add("Откуда/Что");
             localdata_datagrid.DataSource = localdata_dataTable;
         }
 
@@ -70,7 +71,7 @@ namespace Parser2._0
             {
                 for (int i = 0; i < excel_dataTables.Count; i++)
                 {
-                    this.tabControl1.TabPages.Add(new CustomTabPage(excel_dataTables[i], excel_dataTables[i].Rows[0][0].ToString(), "ExcelType"));
+                    this.tabControl1.TabPages.Add(new CustomTabPage(excel_dataTables[i], excel_dataTables[i].Rows[0][1].ToString(), "ExcelType"));
                 }
                 if ((tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).Type != "DataBaseType")
                 {

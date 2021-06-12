@@ -45,8 +45,9 @@ namespace Parser2._0
         {
             if (!String.IsNullOrEmpty(textBox1.Text))
             {
-                dataTable.Rows.Add(dataTable.Rows.Count + 1, textBox1.Text);
+                dataTable.Rows.Add(dataTable.Rows.Count + 1, textBox1.Text, textBox2);
                 textBox1.Text = "";
+                textBox2.Text = "";
                 RefreshDataGridView();
                 MessageBox.Show("Добавлено!");
             }
@@ -57,7 +58,9 @@ namespace Parser2._0
             if(dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
             {
                 dataTable.Rows[dataGridView1.CurrentCell.RowIndex][1] = textBox1.Text;
+                dataTable.Rows[dataGridView1.CurrentCell.RowIndex][2] = textBox2.Text;
                 textBox1.Text = "";
+                textBox2.Text = "";
                 RefreshDataGridView();
                 MessageBox.Show("Отредактировано!");
             }
@@ -74,6 +77,7 @@ namespace Parser2._0
                         dataGridView1.Rows.Remove(dataGridViewRow);
                     }
                     textBox1.Text = "";
+                    textBox2.Text = "";
                     RefreshDataGridView();
                     MessageBox.Show("Удалено!");
                 }
@@ -91,6 +95,15 @@ namespace Parser2._0
             mainForm.fileWork_Manager.ClearLocalDate();
             dataTable.Rows.Clear();
             mainForm.fileWork_Manager.PushArrayLocalData(DataTableToList(dataTable));
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dataGridView1.CurrentCell != null)
+            {
+                textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                textBox2.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            }
         }
     }
 }
