@@ -8,7 +8,8 @@ namespace Parser2._0
 {
     class ExpertSystem_Manager
     {
-        MainForm mainForm; 
+        MainForm mainForm;
+        List<DataGridViewRow> dataRows = new List<DataGridViewRow>();
         private string InputData; //0
         private string ValueInFile; //1
         private string OutputDataType; //2
@@ -77,31 +78,32 @@ namespace Parser2._0
                 {
                     DataGridViewRow dataGridViewRow = new DataGridViewRow();
                     dataGridViewRow = dataGridView.Rows[i];
+                    dataRows.Add(dataGridViewRow);
                     if (!Program.IsDataGridViewRowEmpty(dataGridViewRow))
                     {
                         if (dataGridViewRow.Cells[0].Value != null)
                         {
-                            InputData = dataGridViewRow.Cells[0].Value.ToString();
+                            InputData = dataGridViewRow.Cells[0].Value.ToString().Trim();
                         }
                         if (dataGridViewRow.Cells[1].Value != null)
                         {
-                            ValueInFile = dataGridViewRow.Cells[1].Value.ToString();
+                            ValueInFile = dataGridViewRow.Cells[1].Value.ToString().Trim();
                         }
                         if (dataGridViewRow.Cells[2].Value != null)
                         {
-                            OutputDataType = dataGridViewRow.Cells[2].Value.ToString();
+                            OutputDataType = dataGridViewRow.Cells[2].Value.ToString().Trim();
                         }
                         if (dataGridViewRow.Cells[3].Value != null)
                         {
-                            Command = dataGridViewRow.Cells[3].Value.ToString();
+                            Command = dataGridViewRow.Cells[3].Value.ToString().Trim();
                         }
                         if (dataGridViewRow.Cells[4].Value != null)
                         {
-                            Options = dataGridViewRow.Cells[4].Value.ToString();
+                            Options = dataGridViewRow.Cells[4].Value.ToString().Trim();
                         }
                         if (dataGridViewRow.Cells[5].Value != null)
                         {
-                            Result = dataGridViewRow.Cells[5].Value.ToString();
+                            Result = dataGridViewRow.Cells[5].Value.ToString().Trim();
                         }
                         this.ExecuteCommand();
                         InputData = "";
@@ -182,7 +184,7 @@ namespace Parser2._0
                 if (InputData == "Varriable")
                 {
                     //Порядок полей
-                    //Название таблицы, количество полей
+                    //Название таблицы,
                     mainForm.Refresh_DataGridView_LocalData();
                     List<Object> list = ParseOptions();
                     string tableName = list[0].ToString();
