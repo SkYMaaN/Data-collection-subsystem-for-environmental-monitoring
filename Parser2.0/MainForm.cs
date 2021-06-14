@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Parser2._0
@@ -32,6 +33,8 @@ namespace Parser2._0
                 }
             }
             localdata_datagrid.DataSource = localdata_dataTable;
+            localdata_datagrid.DefaultCellStyle.ForeColor = Color.Black;
+            localdata_datagrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
             //localdata_datagrid.Columns[0].Width = 35;
         }
 
@@ -47,7 +50,7 @@ namespace Parser2._0
             localdata_dataTable = new DataTable();
             localdata_dataTable.Columns.Add("№");
             localdata_dataTable.Columns.Add("Значение");
-            localdata_dataTable.Columns.Add("Откуда/Что");
+            //localdata_dataTable.Columns.Add("Откуда/Что");
             localdata_datagrid.DataSource = localdata_dataTable;
         }
 
@@ -393,6 +396,14 @@ namespace Parser2._0
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             excel_Manager.Dispose();
+        }
+
+        private void regulationsUpdateMasterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegulationsUpdateMaster regulationsUpdateMaster = new RegulationsUpdateMaster((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataTable, (dataGridView2.DataSource as DataTable));
+            this.Hide();
+            regulationsUpdateMaster.ShowDialog();
+            this.Show();
         }
     }
 }

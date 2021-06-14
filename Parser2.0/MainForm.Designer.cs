@@ -30,10 +30,11 @@ namespace Parser2._0
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regulationsUpdateMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -75,7 +76,8 @@ namespace Parser2._0
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.regulationsUpdateMasterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1698, 24);
@@ -89,6 +91,13 @@ namespace Parser2._0
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // regulationsUpdateMasterToolStripMenuItem
+            // 
+            this.regulationsUpdateMasterToolStripMenuItem.Name = "regulationsUpdateMasterToolStripMenuItem";
+            this.regulationsUpdateMasterToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
+            this.regulationsUpdateMasterToolStripMenuItem.Text = "Regulations Update Master";
+            this.regulationsUpdateMasterToolStripMenuItem.Click += new System.EventHandler(this.regulationsUpdateMasterToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -182,20 +191,20 @@ namespace Parser2._0
             // 
             this.localdata_datagrid.AllowUserToAddRows = false;
             this.localdata_datagrid.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
-            this.localdata_datagrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.localdata_datagrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.localdata_datagrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.localdata_datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.localdata_datagrid.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.localdata_datagrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.localdata_datagrid.Location = new System.Drawing.Point(6, 50);
             this.localdata_datagrid.Name = "localdata_datagrid";
             this.localdata_datagrid.ReadOnly = true;
@@ -528,6 +537,7 @@ namespace Parser2._0
         internal System.Windows.Forms.DataGridView localdata_datagrid;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem regulationsUpdateMasterToolStripMenuItem;
     }
 }
 

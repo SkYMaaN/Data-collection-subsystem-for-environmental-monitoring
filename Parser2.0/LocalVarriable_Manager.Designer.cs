@@ -63,8 +63,6 @@ namespace Parser2._0
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBox1);
@@ -74,7 +72,7 @@ namespace Parser2._0
             this.groupBox1.ForeColor = System.Drawing.Color.Gold;
             this.groupBox1.Location = new System.Drawing.Point(417, 29);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 270);
+            this.groupBox1.Size = new System.Drawing.Size(189, 211);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление выбранными данными";
@@ -82,19 +80,21 @@ namespace Parser2._0
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 214);
+            this.label3.Location = new System.Drawing.Point(423, 411);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 16);
+            this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Откуда/что";
+            this.label3.Visible = false;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 238);
+            this.textBox2.Location = new System.Drawing.Point(423, 435);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(160, 20);
             this.textBox2.TabIndex = 5;
+            this.textBox2.Visible = false;
             // 
             // button3
             // 
@@ -119,7 +119,7 @@ namespace Parser2._0
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 180);
+            this.textBox1.Location = new System.Drawing.Point(6, 175);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(160, 20);
@@ -205,6 +205,8 @@ namespace Parser2._0
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(618, 585);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);

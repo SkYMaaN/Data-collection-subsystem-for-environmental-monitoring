@@ -152,12 +152,10 @@ namespace Parser2._0
             Object code = dataBase_Manager.ExecScalar("SELECT " + this.Result.Replace(";","") + " FROM " + list[0].ToString() + " WHERE " + list[1].ToString() + " = '" + this.ValueInFile.Trim() + "'");
             if(code != null)
             {
-                DialogResult result = MessageBox.Show("Записать в переменную?", "Найдено!", MessageBoxButtons.YesNo,MessageBoxIcon.Information,MessageBoxDefaultButton.Button1,MessageBoxOptions.DefaultDesktopOnly);
+                DialogResult result = MessageBox.Show("Записать в переменную? (" + this.Command + " : " + this.ValueInFile +")", "Найдено!", MessageBoxButtons.YesNo,MessageBoxIcon.Information,MessageBoxDefaultButton.Button1,MessageBoxOptions.DefaultDesktopOnly);
                 if (result == DialogResult.Yes)
                 {
-                    mainForm.TMP_For_Find = code.ToString();
                     mainForm.fileWork_Manager.PushLocalData(code.ToString());
-                    //MessageBox.Show("Значение записано в переменную!");
                 }
             }
             else
@@ -167,9 +165,7 @@ namespace Parser2._0
                 {
                     NotFindForm notFindForm = new NotFindForm();
                     notFindForm.ShowDialog();
-                    mainForm.TMP_For_Find = notFindForm.textBox1.Text;
                     mainForm.fileWork_Manager.PushLocalData(notFindForm.textBox1.Text);
-                    //MessageBox.Show("Новое значение записано в переменную!");
                 }
             }
         }
