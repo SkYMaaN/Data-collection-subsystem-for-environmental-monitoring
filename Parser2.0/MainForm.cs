@@ -13,7 +13,7 @@ namespace Parser2._0
         internal ExpertSystem_Manager expertSystem_Manager;
         internal FileWork_Manager fileWork_Manager;
         internal JSON_Manager json_Manager;
-        List<DataTable> excel_dataTables = null;
+        internal List<DataTable> excel_dataTables = null;
         DataTable db_dataTable = null;
         DataTable json_dataTable = null;
         DataTable localdata_dataTable = null;
@@ -166,9 +166,23 @@ namespace Parser2._0
         {
             if (comboBox1.SelectedIndex != -1)
             {
-                db_dataTable = dataBase_Manager.SelectAll_DataTable("SELECT * FROM " + comboBox1.SelectedItem.ToString());
-                this.tabControl1.TabPages.Add(new CustomTabPage(db_dataTable, this.comboBox1.SelectedItem.ToString(), "DataBaseType"));
-                comboBox1.SelectedIndex = -1;
+                bool isChange = false;
+                for(int i = 0; i < tabControl1.TabPages.Count; i++)
+                {
+                    if((tabControl1.TabPages[i] as CustomTabPage).Type == "DataBaseType" && (tabControl1.TabPages[i] as CustomTabPage).Text == comboBox1.SelectedItem.ToString())
+                    {
+                        db_dataTable = dataBase_Manager.SelectAll_DataTable("SELECT * FROM " + comboBox1.SelectedItem.ToString());
+                        (tabControl1.TabPages[i] as CustomTabPage).dataTable = db_dataTable;
+                        isChange = true;
+                        break;
+                    }
+                }
+                if(isChange == false)
+                {
+                    db_dataTable = dataBase_Manager.SelectAll_DataTable("SELECT * FROM " + comboBox1.SelectedItem.ToString());
+                    this.tabControl1.TabPages.Add(new CustomTabPage(db_dataTable, this.comboBox1.SelectedItem.ToString(), "DataBaseType"));
+                    comboBox1.SelectedIndex = -1;
+                }
             }
         }
 
@@ -268,6 +282,11 @@ namespace Parser2._0
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+            label4.Text = tabControl1.TabPages.Count.ToString();
+            if (excel_dataTables != null)
+            {
+                label5.Text = excel_dataTables.Count.ToString();
+            }
             this.Refresh_DataGridView_LocalData();
         }
 
@@ -289,12 +308,11 @@ namespace Parser2._0
 
         private void button8_Click(object sender, EventArgs e)
         {
-            if (this.comboBox2.SelectedIndex != -1 && !String.IsNullOrEmpty(this.comboBox2.SelectedItem.ToString()))
+            if (this.comboBox2.SelectedIndex != -1)
             {
                 json_dataTable = json_Manager.LoadJsonFile(this.comboBox2.SelectedItem.ToString());
                 if (json_dataTable != null)
                 {
-                    this.comboBox1.SelectedIndex = -1;
                     this.tabControl1.TabPages.Add(new CustomTabPage(json_dataTable, "JSON_" + this.comboBox2.SelectedItem.ToString(), "JSONType"));
                     this.comboBox2.SelectedIndex = -1;
                     json_Manager.Get_ValueInFile((this.tabControl1.TabPages[tabControl1.SelectedIndex] as CustomTabPage).dataGridView, dataGridView2);
@@ -364,6 +382,7 @@ namespace Parser2._0
                         tabControl1.TabPages.RemoveAt(i--);
                     }
                 }
+                comboBox1.SelectedItem = -1;
                 button4_Click(sender, e);
             }
         }

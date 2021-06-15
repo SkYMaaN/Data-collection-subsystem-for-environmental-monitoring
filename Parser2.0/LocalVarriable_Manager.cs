@@ -73,6 +73,13 @@ namespace Parser2._0
                 {
                     foreach (DataGridViewRow dataGridViewRow in dataGridView1.SelectedRows)
                     {
+                        for (int i = 0; i < dataTable.Rows.Count; i++)
+                        {
+                            if (dataTable.Rows[i][0] == dataGridViewRow.Cells[0] && dataTable.Rows[i][1] == dataGridViewRow.Cells[1])
+                            {
+                                dataTable.Rows.RemoveAt(--i);
+                            }
+                        }
                         dataGridView1.Rows.Remove(dataGridViewRow);
                     }
                     textBox1.Text = "";

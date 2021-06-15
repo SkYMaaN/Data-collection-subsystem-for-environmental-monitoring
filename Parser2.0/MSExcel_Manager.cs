@@ -53,6 +53,7 @@ namespace Parser2._0
                     dataTables.Add(dataTable);
                     oleDbConnection.Close();
                     oleDbConnection.Dispose();
+                    oleDbDataAdapter.Dispose();
                     //stopWatch.Stop();
                     //MessageBox.Show("Затрачено времени: " + stopWatch.Elapsed.TotalSeconds.ToString());
                 }
@@ -110,11 +111,19 @@ namespace Parser2._0
         }
         internal void CloseExcelFile()
         {
+            if (mainForm.excel_dataTables != null && mainForm.excel_dataTables.Count > 0)
+            {
+                mainForm.excel_dataTables = null;
+            }
+            if (worksheets_names.Count > 0)
+            {
+                worksheets_names.Clear();
+            }
             if (worksheets_list.Count > 0)
             {
                 worksheets_list.Clear();
-                Workbook = null;
             }
+            Workbook = null;
         }
         internal void Dispose()
         {
