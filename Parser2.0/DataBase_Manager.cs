@@ -14,6 +14,8 @@ namespace Parser2._0
         private MySqlCommand sqlCommand;
         internal void ConnectToDB()
         {
+           
+            
             sqlConnection.ConnectionString = path;
         }
         internal List<List<Object>> SelectAll(string TableName)
